@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Architecture Project | Dean</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Animated grid background -->
+    <div class="grid-bg"></div>
+    
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-bracket">[</span> NET <span class="logo-bracket">]</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="networking.html" class="nav-link">Networking</a>
+                <a href="about.html" class="nav-link">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <div class="hero-tag">
+                <span class="tag-dot"></span>
+                CSC 4220 &mdash; Computer Networks &mdash; Spring 2026
+            </div>
+            <h1 class="hero-title">
+                Build & Deploy a<br>
+                <span class="hero-accent">Public Website</span>
+            </h1>
+            <p class="hero-subtitle">
+                Exploring real-world networking concepts through hands-on deployment &mdash; 
+                DNS resolution, IP addressing, HTTP/HTTPS protocols, and security implementation.
+            </p>
+            <div class="hero-actions">
+                <a href="networking.html" class="btn btn-primary">
+                    <span class="btn-icon">&rarr;</span> Explore Networking Concepts
+                </a>
+                <a href="https://github.com/YOUR_USERNAME/YOUR_USERNAME.github.io" class="btn btn-secondary" target="_blank">
+                    <span class="btn-icon">&lt;/&gt;</span> View Source Code
+                </a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="terminal">
+                <div class="terminal-bar">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                    <span class="terminal-title">terminal</span>
+                </div>
+                <div class="terminal-body">
+                    <div class="terminal-line">
+                        <span class="term-prompt">$</span> 
+                        <span class="term-cmd typing" id="cmd1">nslookup YOUR_USERNAME.github.io</span>
+                    </div>
+                    <div class="terminal-line output delay-1">
+                        <span class="term-output">Server: 8.8.8.8</span>
+                    </div>
+                    <div class="terminal-line output delay-2">
+                        <span class="term-output">Address: 8.8.8.8#53</span>
+                    </div>
+                    <div class="terminal-line output delay-3">
+                        <span class="term-output blank">&nbsp;</span>
+                    </div>
+                    <div class="terminal-line output delay-4">
+                        <span class="term-output highlight">Name: YOUR_USERNAME.github.io</span>
+                    </div>
+                    <div class="terminal-line output delay-5">
+                        <span class="term-output highlight">Address: 185.199.108.153</span>
+                    </div>
+                    <div class="terminal-line delay-6">
+                        <span class="term-prompt">$</span>
+                        <span class="term-cursor"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Overview Cards -->
+    <section class="section">
+        <div class="section-inner">
+            <h2 class="section-title">Project Overview</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">&#9741;</div>
+                    <h3 class="card-title">DNS & Domain</h3>
+                    <p class="card-text">
+                        Domain resolution via GitHub Pages subdomain. DNS maps human-readable 
+                        hostnames to IP addresses using recursive queries through the DNS hierarchy.
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">&#9850;</div>
+                    <h3 class="card-title">IP Addressing</h3>
+                    <p class="card-text">
+                        IPv4 and IPv6 resolution demonstrated through dig and nslookup commands, 
+                        showing how the site resolves to GitHub's content delivery network.
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">&#8644;</div>
+                    <h3 class="card-title">HTTP/HTTPS</h3>
+                    <p class="card-text">
+                        HTTPS enforced via GitHub Pages with TLS certificates. HTTP headers, 
+                        status codes, and the TLS handshake process are documented and explained.
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">&#9888;</div>
+                    <h3 class="card-title">Security</h3>
+                    <p class="card-text">
+                        HTTPS enforcement ensures encrypted communication. Security headers 
+                        and certificate validation protect data integrity and authenticity.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section class="section section-dark">
+        <div class="section-inner">
+            <h2 class="section-title">Technology Stack</h2>
+            <div class="stack-grid">
+                <div class="stack-item">
+                    <div class="stack-label">Frontend</div>
+                    <div class="stack-value">HTML5 + CSS3 + JavaScript</div>
+                </div>
+                <div class="stack-item">
+                    <div class="stack-label">Hosting</div>
+                    <div class="stack-value">GitHub Pages</div>
+                </div>
+                <div class="stack-item">
+                    <div class="stack-label">Version Control</div>
+                    <div class="stack-value">Git + GitHub</div>
+                </div>
+                <div class="stack-item">
+                    <div class="stack-label">Security</div>
+                    <div class="stack-value">HTTPS / TLS 1.3</div>
+                </div>
+                <div class="stack-item">
+                    <div class="stack-label">DNS Provider</div>
+                    <div class="stack-value">GitHub Default DNS</div>
+                </div>
+                <div class="stack-item">
+                    <div class="stack-label">CDN</div>
+                    <div class="stack-value">Fastly (via GitHub)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-left">
+                <span class="footer-logo">
+                    <span class="logo-bracket">[</span> NET <span class="logo-bracket">]</span>
+                </span>
+                <span class="footer-copy">CSC 4220 &mdash; Georgia State University &mdash; Spring 2026</span>
+            </div>
+            <div class="footer-right">
+                <span class="footer-name">Dean &mdash; Solo Project</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

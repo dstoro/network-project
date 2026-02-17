@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Network Architecture Project</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="grid-bg"></div>
+    
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-bracket">[</span> NET <span class="logo-bracket">]</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="networking.html" class="nav-link">Networking</a>
+                <a href="about.html" class="nav-link active">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="page-header-inner">
+            <div class="hero-tag">
+                <span class="tag-dot"></span>
+                About This Project
+            </div>
+            <h1 class="page-title">About</h1>
+            <p class="page-subtitle">
+                Project details, team information, and setup documentation.
+            </p>
+        </div>
+    </header>
+
+    <!-- About Content -->
+    <section class="section">
+        <div class="section-inner">
+            <div class="about-grid">
+                <div class="about-card">
+                    <h3 class="about-card-title">Project Info</h3>
+                    <div class="about-details">
+                        <div class="about-row">
+                            <span class="about-label">Course</span>
+                            <span class="about-value">CSC 4220 &mdash; Computer Networks</span>
+                        </div>
+                        <div class="about-row">
+                            <span class="about-label">Instructor</span>
+                            <span class="about-value">Roya Hosseini</span>
+                        </div>
+                        <div class="about-row">
+                            <span class="about-label">Semester</span>
+                            <span class="about-value">Spring 2026</span>
+                        </div>
+                        <div class="about-row">
+                            <span class="about-label">University</span>
+                            <span class="about-value">Georgia State University</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-card">
+                    <h3 class="about-card-title">Team</h3>
+                    <div class="team-member">
+                        <div class="member-avatar">D</div>
+                        <div class="member-info">
+                            <div class="member-name">Dean</div>
+                            <div class="member-role">Solo Developer</div>
+                            <div class="member-tasks">Website design & development, hosting configuration, networking analysis, documentation</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-card full-width">
+                    <h3 class="about-card-title">Setup Steps</h3>
+                    <div class="setup-steps">
+                        <div class="setup-step">
+                            <span class="setup-num">01</span>
+                            <div class="setup-content">
+                                <strong>Repository Creation</strong>
+                                <p>Created a GitHub repository named <code>YOUR_USERNAME.github.io</code> to leverage GitHub Pages' automatic deployment.</p>
+                            </div>
+                        </div>
+                        <div class="setup-step">
+                            <span class="setup-num">02</span>
+                            <div class="setup-content">
+                                <strong>Website Development</strong>
+                                <p>Built the site using HTML5, CSS3, and vanilla JavaScript. Designed with a dark theme and terminal-inspired UI to reflect the networking/cybersecurity theme.</p>
+                            </div>
+                        </div>
+                        <div class="setup-step">
+                            <span class="setup-num">03</span>
+                            <div class="setup-content">
+                                <strong>GitHub Pages Deployment</strong>
+                                <p>Pushed code to the main branch. Enabled GitHub Pages in repository settings (Settings &rarr; Pages &rarr; Source: main branch).</p>
+                            </div>
+                        </div>
+                        <div class="setup-step">
+                            <span class="setup-num">04</span>
+                            <div class="setup-content">
+                                <strong>HTTPS Configuration</strong>
+                                <p>Enabled "Enforce HTTPS" in GitHub Pages settings. GitHub automatically provisions a Let's Encrypt TLS certificate.</p>
+                            </div>
+                        </div>
+                        <div class="setup-step">
+                            <span class="setup-num">05</span>
+                            <div class="setup-content">
+                                <strong>DNS Verification</strong>
+                                <p>Ran <code>nslookup</code>, <code>dig</code>, and <code>curl</code> commands to verify DNS resolution, IP addressing, and HTTPS enforcement.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-card full-width">
+                    <h3 class="about-card-title">Challenges & Solutions</h3>
+                    <div class="challenges">
+                        <div class="challenge-item">
+                            <div class="challenge-problem">
+                                <span class="challenge-label">Challenge</span>
+                                DNS propagation delay after initial deployment
+                            </div>
+                            <div class="challenge-solution">
+                                <span class="challenge-label solution">Solution</span>
+                                Waited for GitHub's DNS to propagate (~10 minutes). Verified resolution using 
+                                <code>nslookup</code> with Google's public DNS (8.8.8.8) to bypass local cache.
+                            </div>
+                        </div>
+                        <div class="challenge-item">
+                            <div class="challenge-problem">
+                                <span class="challenge-label">Challenge</span>
+                                Understanding the difference between A records (IPv4) and AAAA records (IPv6)
+                            </div>
+                            <div class="challenge-solution">
+                                <span class="challenge-label solution">Solution</span>
+                                Used <code>dig</code> with specific record type flags (<code>A</code> and <code>AAAA</code>) 
+                                to query each separately, confirming dual-stack support on GitHub's infrastructure.
+                            </div>
+                        </div>
+                        <div class="challenge-item">
+                            <div class="challenge-problem">
+                                <span class="challenge-label">Challenge</span>
+                                Verifying that HTTPS is properly enforced and not just available
+                            </div>
+                            <div class="challenge-solution">
+                                <span class="challenge-label solution">Solution</span>
+                                Tested by running <code>curl -I http://YOUR_USERNAME.github.io</code> (HTTP, not HTTPS) and confirmed 
+                                a <code>301 Moved Permanently</code> redirect to the HTTPS version, proving enforcement.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-left">
+                <span class="footer-logo">
+                    <span class="logo-bracket">[</span> NET <span class="logo-bracket">]</span>
+                </span>
+                <span class="footer-copy">CSC 4220 &mdash; Georgia State University &mdash; Spring 2026</span>
+            </div>
+            <div class="footer-right">
+                <span class="footer-name">Dean &mdash; Solo Project</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
