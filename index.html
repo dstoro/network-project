@@ -3,177 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Network Architecture Project | Dean</title>
+    <title>Network Architecture Project</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Animated grid background -->
-    <div class="grid-bg"></div>
-    
+    <!-- Particle canvas background -->
+    <canvas id="particles"></canvas>
+    <div class="scanlines"></div>
+    <div class="noise"></div>
+
     <!-- Navigation -->
     <nav class="nav">
         <div class="nav-inner">
             <a href="index.html" class="nav-logo">
-                <span class="logo-bracket">[</span> NET <span class="logo-bracket">]</span>
+                <span class="logo-hex">⬡</span> NETOPS
             </a>
             <div class="nav-links">
                 <a href="index.html" class="nav-link active">Home</a>
                 <a href="networking.html" class="nav-link">Networking</a>
                 <a href="about.html" class="nav-link">About</a>
             </div>
+            <div class="nav-status">
+                <span class="status-dot"></span>
+                <span class="status-text">DEPLOYED</span>
+            </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <header class="hero">
         <div class="hero-content">
-            <div class="hero-tag">
-                <span class="tag-dot"></span>
-                CSC 4220 &mdash; Computer Networks &mdash; Spring 2026
+            <div class="hero-badge anim-in">
+                <span class="badge-pulse"></span>
+                CSC 4220 · Computer Networks · Spring 2026
             </div>
             <h1 class="hero-title">
-                Build & Deploy a<br>
-                <span class="hero-accent">Public Website</span>
+                <span class="title-line anim-in d1">Build & Deploy</span>
+                <span class="title-line anim-in d2">A Public <span class="glitch" data-text="Website">Website</span></span>
             </h1>
-            <p class="hero-subtitle">
-                Exploring real-world networking concepts through hands-on deployment &mdash; 
-                DNS resolution, IP addressing, HTTP/HTTPS protocols, and security implementation.
+            <p class="hero-desc anim-in d3">
+                A hands-on exploration of how networking makes this website work — from DNS 
+                resolution and IP addressing to HTTPS encryption and security headers. 
+                Every concept demonstrated on a live deployment.
             </p>
-            <div class="hero-actions">
-                <a href="networking.html" class="btn btn-primary">
-                    <span class="btn-icon">&rarr;</span> Explore Networking Concepts
+            <div class="hero-actions anim-in d4">
+                <a href="networking.html" class="btn btn-glow">
+                    View Networking Concepts <span class="btn-arrow">→</span>
                 </a>
-                <a href="https://github.com/YOUR_USERNAME/YOUR_USERNAME.github.io" class="btn btn-secondary" target="_blank">
-                    <span class="btn-icon">&lt;/&gt;</span> View Source Code
+                <a href="https://github.com/dstoro/network-project" class="btn btn-ghost" target="_blank">
+                    &lt;/&gt; Source Code
                 </a>
             </div>
+            <div class="hero-metrics anim-in d5">
+                <div class="metric">
+                    <span class="metric-val counter" data-target="4">0</span>
+                    <span class="metric-label">Concepts Covered</span>
+                </div>
+                <div class="metric-sep"></div>
+                <div class="metric">
+                    <span class="metric-val">HTTPS</span>
+                    <span class="metric-label">Encryption Active</span>
+                </div>
+                <div class="metric-sep"></div>
+                <div class="metric">
+                    <span class="metric-val">TLS 1.3</span>
+                    <span class="metric-label">Security Protocol</span>
+                </div>
+            </div>
         </div>
-        <div class="hero-visual">
+
+        <div class="hero-visual anim-in d3">
             <div class="terminal">
-                <div class="terminal-bar">
-                    <span class="terminal-dot red"></span>
-                    <span class="terminal-dot yellow"></span>
-                    <span class="terminal-dot green"></span>
-                    <span class="terminal-title">terminal</span>
+                <div class="terminal-chrome">
+                    <div class="terminal-dots"><span></span><span></span><span></span></div>
+                    <span class="terminal-title">network-diagnostics</span>
                 </div>
-                <div class="terminal-body">
-                    <div class="terminal-line">
-                        <span class="term-prompt">$</span> 
-                        <span class="term-cmd typing" id="cmd1">nslookup YOUR_USERNAME.github.io</span>
-                    </div>
-                    <div class="terminal-line output delay-1">
-                        <span class="term-output">Server: 8.8.8.8</span>
-                    </div>
-                    <div class="terminal-line output delay-2">
-                        <span class="term-output">Address: 8.8.8.8#53</span>
-                    </div>
-                    <div class="terminal-line output delay-3">
-                        <span class="term-output blank">&nbsp;</span>
-                    </div>
-                    <div class="terminal-line output delay-4">
-                        <span class="term-output highlight">Name: YOUR_USERNAME.github.io</span>
-                    </div>
-                    <div class="terminal-line output delay-5">
-                        <span class="term-output highlight">Address: 185.199.108.153</span>
-                    </div>
-                    <div class="terminal-line delay-6">
-                        <span class="term-prompt">$</span>
-                        <span class="term-cursor"></span>
-                    </div>
-                </div>
+                <div class="terminal-body" id="heroTerminal"></div>
             </div>
         </div>
     </header>
 
-    <!-- Overview Cards -->
-    <section class="section">
-        <div class="section-inner">
-            <h2 class="section-title">Project Overview</h2>
-            <div class="cards-grid">
-                <div class="card">
-                    <div class="card-icon">&#9741;</div>
-                    <h3 class="card-title">DNS & Domain</h3>
-                    <p class="card-text">
-                        Domain resolution via GitHub Pages subdomain. DNS maps human-readable 
-                        hostnames to IP addresses using recursive queries through the DNS hierarchy.
-                    </p>
+    <!-- Scrolling marquee -->
+    <div class="marquee">
+        <div class="marquee-track">
+            <span>DNS ◆ IPv4 ◆ IPv6 ◆ HTTPS ◆ TLS 1.3 ◆ TCP/IP ◆ HTTP HEADERS ◆ STATUS CODES ◆ HSTS ◆ ENCRYPTION ◆&nbsp;</span>
+            <span>DNS ◆ IPv4 ◆ IPv6 ◆ HTTPS ◆ TLS 1.3 ◆ TCP/IP ◆ HTTP HEADERS ◆ STATUS CODES ◆ HSTS ◆ ENCRYPTION ◆&nbsp;</span>
+        </div>
+    </div>
+
+    <!-- Concepts Overview -->
+    <section class="section" id="concepts">
+        <div class="container">
+            <div class="section-label scroll-anim">
+                <span class="label-line"></span>
+                How Networking Makes This Site Work
+                <span class="label-line"></span>
+            </div>
+            <h2 class="section-heading scroll-anim">Project Overview</h2>
+
+            <div class="card-grid">
+                <div class="concept-card scroll-anim" style="--i:0">
+                    <div class="card-glow"></div>
+                    <span class="card-num">01</span>
+                    <div class="card-icon-ring">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10A15.3 15.3 0 0112 2z"/></svg>
+                    </div>
+                    <h3>DNS Resolution</h3>
+                    <p>This site's domain resolves through the DNS hierarchy — root servers → TLD nameservers → authoritative nameservers — returning IP addresses so browsers can connect.</p>
+                    <span class="card-tag">nslookup · dig · A/AAAA records</span>
                 </div>
-                <div class="card">
-                    <div class="card-icon">&#9850;</div>
-                    <h3 class="card-title">IP Addressing</h3>
-                    <p class="card-text">
-                        IPv4 and IPv6 resolution demonstrated through dig and nslookup commands, 
-                        showing how the site resolves to GitHub's content delivery network.
-                    </p>
+                <div class="concept-card scroll-anim" style="--i:1">
+                    <div class="card-glow"></div>
+                    <span class="card-num">02</span>
+                    <div class="card-icon-ring">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M8 7h8M8 12h8M8 17h4"/></svg>
+                    </div>
+                    <h3>IP Addressing</h3>
+                    <p>The domain resolves to both IPv4 and IPv6 addresses on Vercel's edge network, demonstrating dual-stack connectivity across their global CDN.</p>
+                    <span class="card-tag">IPv4 · IPv6 · Dual-stack</span>
                 </div>
-                <div class="card">
-                    <div class="card-icon">&#8644;</div>
-                    <h3 class="card-title">HTTP/HTTPS</h3>
-                    <p class="card-text">
-                        HTTPS enforced via GitHub Pages with TLS certificates. HTTP headers, 
-                        status codes, and the TLS handshake process are documented and explained.
-                    </p>
+                <div class="concept-card scroll-anim" style="--i:2">
+                    <div class="card-glow"></div>
+                    <span class="card-num">03</span>
+                    <div class="card-icon-ring">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+                    </div>
+                    <h3>HTTP/HTTPS Protocols</h3>
+                    <p>All traffic is served over HTTPS (port 443) with TLS encryption. HTTP requests are redirected. Response headers and status codes are documented with evidence.</p>
+                    <span class="card-tag">TLS 1.3 · 200 OK · 308 Redirect</span>
                 </div>
-                <div class="card">
-                    <div class="card-icon">&#9888;</div>
-                    <h3 class="card-title">Security</h3>
-                    <p class="card-text">
-                        HTTPS enforcement ensures encrypted communication. Security headers 
-                        and certificate validation protect data integrity and authenticity.
-                    </p>
+                <div class="concept-card scroll-anim" style="--i:3">
+                    <div class="card-glow"></div>
+                    <span class="card-num">04</span>
+                    <div class="card-icon-ring">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                    </div>
+                    <h3>Security</h3>
+                    <p>HTTPS enforced automatically via Vercel. Security headers including HSTS, X-Content-Type-Options, and X-Frame-Options protect against MITM, XSS, and clickjacking.</p>
+                    <span class="card-tag">HSTS · Certificate · Headers</span>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Tech Stack -->
-    <section class="section section-dark">
-        <div class="section-inner">
-            <h2 class="section-title">Technology Stack</h2>
-            <div class="stack-grid">
-                <div class="stack-item">
-                    <div class="stack-label">Frontend</div>
-                    <div class="stack-value">HTML5 + CSS3 + JavaScript</div>
-                </div>
-                <div class="stack-item">
-                    <div class="stack-label">Hosting</div>
-                    <div class="stack-value">GitHub Pages</div>
-                </div>
-                <div class="stack-item">
-                    <div class="stack-label">Version Control</div>
-                    <div class="stack-value">Git + GitHub</div>
-                </div>
-                <div class="stack-item">
-                    <div class="stack-label">Security</div>
-                    <div class="stack-value">HTTPS / TLS 1.3</div>
-                </div>
-                <div class="stack-item">
-                    <div class="stack-label">DNS Provider</div>
-                    <div class="stack-value">GitHub Default DNS</div>
-                </div>
-                <div class="stack-item">
-                    <div class="stack-label">CDN</div>
-                    <div class="stack-value">Fastly (via GitHub)</div>
-                </div>
+    <section class="section section-alt">
+        <div class="container">
+            <div class="section-label scroll-anim">
+                <span class="label-line"></span>
+                Infrastructure
+                <span class="label-line"></span>
+            </div>
+            <h2 class="section-heading scroll-anim">Technology Stack</h2>
+            <div class="stack-chips">
+                <div class="chip scroll-anim" style="--i:0"><span class="chip-key">Frontend</span><span class="chip-val">HTML5 · CSS3 · JS</span></div>
+                <div class="chip scroll-anim" style="--i:1"><span class="chip-key">Hosting</span><span class="chip-val">Vercel</span></div>
+                <div class="chip scroll-anim" style="--i:2"><span class="chip-key">Version Control</span><span class="chip-val">Git + GitHub</span></div>
+                <div class="chip scroll-anim" style="--i:3"><span class="chip-key">Security</span><span class="chip-val">HTTPS / TLS 1.3</span></div>
+                <div class="chip scroll-anim" style="--i:4"><span class="chip-key">DNS</span><span class="chip-val">Vercel DNS</span></div>
+                <div class="chip scroll-anim" style="--i:5"><span class="chip-key">CDN</span><span class="chip-val">Vercel Edge</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key statement -->
+    <section class="section">
+        <div class="container">
+            <div class="statement scroll-anim">
+                <div class="stmt-deco"><span class="stmt-line"></span><span class="stmt-diamond">◆</span><span class="stmt-line"></span></div>
+                <blockquote>
+                    This website is hosted publicly on Vercel. DNS resolves the domain to an IP address, 
+                    and communication occurs over HTTPS using TCP/IP.
+                </blockquote>
+                <cite>— Project Verification Statement</cite>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="footer-inner">
+        <div class="container footer-flex">
             <div class="footer-left">
-                <span class="footer-logo">
-                    <span class="logo-bracket">[</span> NET <span class="logo-bracket">]</span>
-                </span>
-                <span class="footer-copy">CSC 4220 &mdash; Georgia State University &mdash; Spring 2026</span>
+                <span class="nav-logo"><span class="logo-hex">⬡</span> NETOPS</span>
+                <span class="footer-sub">CSC 4220 · Georgia State University · Spring 2026</span>
             </div>
-            <div class="footer-right">
-                <span class="footer-name">Dean &mdash; Solo Project</span>
-            </div>
+            <span class="footer-right">Dean — Solo Project</span>
         </div>
     </footer>
 

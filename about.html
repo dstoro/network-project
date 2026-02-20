@@ -3,156 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About | Network Architecture Project</title>
+    <title>About | NETOPS</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="grid-bg"></div>
-    
-    <!-- Navigation -->
+    <canvas id="particles"></canvas>
+    <div class="scanlines"></div>
+    <div class="noise"></div>
+
     <nav class="nav">
         <div class="nav-inner">
-            <a href="index.html" class="nav-logo">
-                <span class="logo-bracket">[</span> NET <span class="logo-bracket">]</span>
-            </a>
+            <a href="index.html" class="nav-logo"><span class="logo-hex">⬡</span> NETOPS</a>
             <div class="nav-links">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="networking.html" class="nav-link">Networking</a>
                 <a href="about.html" class="nav-link active">About</a>
             </div>
+            <div class="nav-status"><span class="status-dot"></span><span class="status-text">DEPLOYED</span></div>
         </div>
     </nav>
 
-    <!-- Page Header -->
-    <header class="page-header">
-        <div class="page-header-inner">
-            <div class="hero-tag">
-                <span class="tag-dot"></span>
-                About This Project
-            </div>
-            <h1 class="page-title">About</h1>
-            <p class="page-subtitle">
-                Project details, team information, and setup documentation.
-            </p>
+    <header class="page-hero">
+        <div class="container">
+            <div class="hero-badge anim-in"><span class="badge-pulse"></span>Project Details</div>
+            <h1 class="page-title anim-in d1">About This <span class="glitch" data-text="Project">Project</span></h1>
+            <p class="page-desc anim-in d2">Setup documentation, team information, and challenges encountered.</p>
         </div>
     </header>
 
-    <!-- About Content -->
+    <!-- Info Cards -->
     <section class="section">
-        <div class="section-inner">
+        <div class="container">
             <div class="about-grid">
-                <div class="about-card">
+                <!-- Project Info -->
+                <div class="about-card scroll-anim" style="--i:0">
                     <h3 class="about-card-title">Project Info</h3>
-                    <div class="about-details">
-                        <div class="about-row">
-                            <span class="about-label">Course</span>
-                            <span class="about-value">CSC 4220 &mdash; Computer Networks</span>
-                        </div>
-                        <div class="about-row">
-                            <span class="about-label">Instructor</span>
-                            <span class="about-value">Roya Hosseini</span>
-                        </div>
-                        <div class="about-row">
-                            <span class="about-label">Semester</span>
-                            <span class="about-value">Spring 2026</span>
-                        </div>
-                        <div class="about-row">
-                            <span class="about-label">University</span>
-                            <span class="about-value">Georgia State University</span>
-                        </div>
+                    <div class="info-rows">
+                        <div class="info-row"><span class="info-key">Course</span><span class="info-val">CSC 4220 — Computer Networks</span></div>
+                        <div class="info-row"><span class="info-key">Instructor</span><span class="info-val">Roya Hosseini</span></div>
+                        <div class="info-row"><span class="info-key">Semester</span><span class="info-val">Spring 2026</span></div>
+                        <div class="info-row"><span class="info-key">University</span><span class="info-val">Georgia State University</span></div>
                     </div>
                 </div>
 
-                <div class="about-card">
+                <!-- Team -->
+                <div class="about-card scroll-anim" style="--i:1">
                     <h3 class="about-card-title">Team</h3>
                     <div class="team-member">
-                        <div class="member-avatar">D</div>
+                        <div class="avatar">D</div>
                         <div class="member-info">
                             <div class="member-name">Dean</div>
                             <div class="member-role">Solo Developer</div>
-                            <div class="member-tasks">Website design & development, hosting configuration, networking analysis, documentation</div>
+                            <div class="member-scope">Website design & development, Vercel deployment, networking analysis & evidence gathering, documentation & report</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="about-card full-width">
+                <!-- Setup Steps -->
+                <div class="about-card about-wide scroll-anim" style="--i:2">
                     <h3 class="about-card-title">Setup Steps</h3>
-                    <div class="setup-steps">
-                        <div class="setup-step">
-                            <span class="setup-num">01</span>
-                            <div class="setup-content">
+                    <div class="steps">
+                        <div class="step">
+                            <span class="step-n">01</span>
+                            <div>
                                 <strong>Repository Creation</strong>
-                                <p>Created a GitHub repository named <code>YOUR_USERNAME.github.io</code> to leverage GitHub Pages' automatic deployment.</p>
+                                <p>Created a GitHub repository (<code>network-project</code>) for version control and continuous deployment integration with Vercel.</p>
                             </div>
                         </div>
-                        <div class="setup-step">
-                            <span class="setup-num">02</span>
-                            <div class="setup-content">
+                        <div class="step">
+                            <span class="step-n">02</span>
+                            <div>
                                 <strong>Website Development</strong>
-                                <p>Built the site using HTML5, CSS3, and vanilla JavaScript. Designed with a dark theme and terminal-inspired UI to reflect the networking/cybersecurity theme.</p>
+                                <p>Built a three-page site using HTML5, CSS3, and vanilla JavaScript. Dark theme with terminal-inspired UI reflecting the networking/cybersecurity subject matter.</p>
                             </div>
                         </div>
-                        <div class="setup-step">
-                            <span class="setup-num">03</span>
-                            <div class="setup-content">
-                                <strong>GitHub Pages Deployment</strong>
-                                <p>Pushed code to the main branch. Enabled GitHub Pages in repository settings (Settings &rarr; Pages &rarr; Source: main branch).</p>
+                        <div class="step">
+                            <span class="step-n">03</span>
+                            <div>
+                                <strong>Vercel Deployment</strong>
+                                <p>Connected the GitHub repo to Vercel. Every push to <code>main</code> triggers an automatic rebuild and deployment to the edge network.</p>
                             </div>
                         </div>
-                        <div class="setup-step">
-                            <span class="setup-num">04</span>
-                            <div class="setup-content">
-                                <strong>HTTPS Configuration</strong>
-                                <p>Enabled "Enforce HTTPS" in GitHub Pages settings. GitHub automatically provisions a Let's Encrypt TLS certificate.</p>
+                        <div class="step">
+                            <span class="step-n">04</span>
+                            <div>
+                                <strong>HTTPS Enforcement</strong>
+                                <p>Vercel automatically provisions a Let's Encrypt TLS certificate and enforces HTTPS on all routes. No manual configuration needed.</p>
                             </div>
                         </div>
-                        <div class="setup-step">
-                            <span class="setup-num">05</span>
-                            <div class="setup-content">
-                                <strong>DNS Verification</strong>
-                                <p>Ran <code>nslookup</code>, <code>dig</code>, and <code>curl</code> commands to verify DNS resolution, IP addressing, and HTTPS enforcement.</p>
+                        <div class="step">
+                            <span class="step-n">05</span>
+                            <div>
+                                <strong>Networking Verification</strong>
+                                <p>Ran <code>nslookup</code>, <code>dig</code>, <code>curl -I</code>, and <code>openssl</code> commands to gather evidence of DNS resolution, IP addressing, HTTPS headers, and TLS certification.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="about-card full-width">
+                <!-- Challenges -->
+                <div class="about-card about-wide scroll-anim" style="--i:3">
                     <h3 class="about-card-title">Challenges & Solutions</h3>
                     <div class="challenges">
-                        <div class="challenge-item">
-                            <div class="challenge-problem">
-                                <span class="challenge-label">Challenge</span>
-                                DNS propagation delay after initial deployment
+                        <div class="challenge">
+                            <div class="ch-row">
+                                <span class="ch-tag problem">Challenge</span>
+                                DNS propagation delay — site not resolving immediately after deployment
                             </div>
-                            <div class="challenge-solution">
-                                <span class="challenge-label solution">Solution</span>
-                                Waited for GitHub's DNS to propagate (~10 minutes). Verified resolution using 
-                                <code>nslookup</code> with Google's public DNS (8.8.8.8) to bypass local cache.
-                            </div>
-                        </div>
-                        <div class="challenge-item">
-                            <div class="challenge-problem">
-                                <span class="challenge-label">Challenge</span>
-                                Understanding the difference between A records (IPv4) and AAAA records (IPv6)
-                            </div>
-                            <div class="challenge-solution">
-                                <span class="challenge-label solution">Solution</span>
-                                Used <code>dig</code> with specific record type flags (<code>A</code> and <code>AAAA</code>) 
-                                to query each separately, confirming dual-stack support on GitHub's infrastructure.
+                            <div class="ch-row">
+                                <span class="ch-tag solution">Solution</span>
+                                Waited for Vercel's DNS to propagate (~5 min). Used <code>nslookup</code> with Google's public DNS (8.8.8.8) to bypass local cache and verify resolution.
                             </div>
                         </div>
-                        <div class="challenge-item">
-                            <div class="challenge-problem">
-                                <span class="challenge-label">Challenge</span>
-                                Verifying that HTTPS is properly enforced and not just available
+                        <div class="challenge">
+                            <div class="ch-row">
+                                <span class="ch-tag problem">Challenge</span>
+                                Verifying HTTPS is enforced, not just available
                             </div>
-                            <div class="challenge-solution">
-                                <span class="challenge-label solution">Solution</span>
-                                Tested by running <code>curl -I http://YOUR_USERNAME.github.io</code> (HTTP, not HTTPS) and confirmed 
-                                a <code>301 Moved Permanently</code> redirect to the HTTPS version, proving enforcement.
+                            <div class="ch-row">
+                                <span class="ch-tag solution">Solution</span>
+                                Ran <code>curl -I http://...</code> (HTTP, not HTTPS) and confirmed a <code>308 Permanent Redirect</code> to the HTTPS version, proving enforcement.
+                            </div>
+                        </div>
+                        <div class="challenge">
+                            <div class="ch-row">
+                                <span class="ch-tag problem">Challenge</span>
+                                Distinguishing between A records (IPv4) and AAAA records (IPv6) in DNS output
+                            </div>
+                            <div class="ch-row">
+                                <span class="ch-tag solution">Solution</span>
+                                Used <code>dig</code> with explicit record type flags (<code>A</code> for IPv4, <code>AAAA</code> for IPv6) to query each separately and confirm dual-stack support.
                             </div>
                         </div>
                     </div>
@@ -161,18 +144,13 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
-        <div class="footer-inner">
+        <div class="container footer-flex">
             <div class="footer-left">
-                <span class="footer-logo">
-                    <span class="logo-bracket">[</span> NET <span class="logo-bracket">]</span>
-                </span>
-                <span class="footer-copy">CSC 4220 &mdash; Georgia State University &mdash; Spring 2026</span>
+                <span class="nav-logo"><span class="logo-hex">⬡</span> NETOPS</span>
+                <span class="footer-sub">CSC 4220 · Georgia State University · Spring 2026</span>
             </div>
-            <div class="footer-right">
-                <span class="footer-name">Dean &mdash; Solo Project</span>
-            </div>
+            <span class="footer-right">Dean — Solo Project</span>
         </div>
     </footer>
 

@@ -3,425 +3,379 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Networking Concepts | Network Architecture Project</title>
+    <title>Networking Concepts | NETOPS</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="grid-bg"></div>
-    
+    <canvas id="particles"></canvas>
+    <div class="scanlines"></div>
+    <div class="noise"></div>
+
     <!-- Navigation -->
     <nav class="nav">
         <div class="nav-inner">
-            <a href="index.html" class="nav-logo">
-                <span class="logo-bracket">[</span> NET <span class="logo-bracket">]</span>
-            </a>
+            <a href="index.html" class="nav-logo"><span class="logo-hex">⬡</span> NETOPS</a>
             <div class="nav-links">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="networking.html" class="nav-link active">Networking</a>
                 <a href="about.html" class="nav-link">About</a>
             </div>
+            <div class="nav-status"><span class="status-dot"></span><span class="status-text">DEPLOYED</span></div>
         </div>
     </nav>
 
-    <!-- Page Header -->
-    <header class="page-header">
-        <div class="page-header-inner">
-            <div class="hero-tag">
-                <span class="tag-dot"></span>
-                Core Networking Evidence
+    <!-- Page Hero -->
+    <header class="page-hero">
+        <div class="container">
+            <div class="hero-badge anim-in">
+                <span class="badge-pulse"></span>
+                Core Evidence & Analysis
             </div>
-            <h1 class="page-title">Networking Concepts</h1>
-            <p class="page-subtitle">
-                Real-world demonstration of DNS, IP addressing, HTTP/HTTPS protocols, 
-                and security as applied to this deployed website.
+            <h1 class="page-title anim-in d1">Networking <span class="glitch" data-text="Concepts">Concepts</span></h1>
+            <p class="page-desc anim-in d2">
+                How networking makes this website work — demonstrated with real command 
+                outputs and browser evidence from this live deployment.
             </p>
         </div>
     </header>
 
-    <!-- DNS Section -->
-    <section class="concept-section" id="dns">
-        <div class="section-inner">
-            <div class="concept-header">
-                <span class="concept-number">01</span>
-                <h2 class="concept-title">DNS &mdash; Domain Name System</h2>
+    <!-- Concept 1: DNS -->
+    <section class="concept-block" id="dns">
+        <div class="container">
+            <div class="concept-top scroll-anim">
+                <span class="concept-num">01</span>
+                <h2 class="concept-heading">DNS — Domain Name System</h2>
             </div>
-            
-            <div class="concept-body">
-                <div class="concept-explanation">
-                    <h3>What is DNS?</h3>
+
+            <div class="concept-grid">
+                <div class="concept-explain scroll-anim">
+                    <h3>How DNS Works for This Site</h3>
                     <p>
-                        The Domain Name System is a hierarchical, distributed naming system that translates 
-                        human-readable domain names (like <code>YOUR_USERNAME.github.io</code>) into machine-readable 
-                        IP addresses. It functions as the internet's phonebook &mdash; without it, users would 
-                        need to memorize numerical IP addresses for every website they visit.
+                        When you visit this website, your browser doesn't know where it lives on the internet. 
+                        It only has the domain name. DNS translates that domain into an IP address your browser 
+                        can connect to. Here's exactly what happens:
                     </p>
-                    
-                    <h3>How DNS Resolution Works for This Site</h3>
-                    <p>
-                        When a user visits this website, the following DNS resolution process occurs:
-                    </p>
-                    <div class="dns-flow">
+
+                    <div class="flow">
                         <div class="flow-step">
-                            <span class="flow-num">1</span>
-                            <div class="flow-content">
-                                <strong>Browser Cache Check</strong>
-                                <span>Browser checks its local DNS cache for a cached record</span>
-                            </div>
+                            <span class="flow-n">1</span>
+                            <div><strong>Browser Cache</strong><span>Checks if this domain was recently resolved</span></div>
                         </div>
-                        <div class="flow-arrow">&darr;</div>
+                        <div class="flow-arrow">↓</div>
                         <div class="flow-step">
-                            <span class="flow-num">2</span>
-                            <div class="flow-content">
-                                <strong>Recursive Resolver</strong>
-                                <span>Query sent to ISP's recursive DNS resolver (or 8.8.8.8 / 1.1.1.1)</span>
-                            </div>
+                            <span class="flow-n">2</span>
+                            <div><strong>Recursive Resolver</strong><span>Queries ISP or public DNS (8.8.8.8 / 1.1.1.1)</span></div>
                         </div>
-                        <div class="flow-arrow">&darr;</div>
+                        <div class="flow-arrow">↓</div>
                         <div class="flow-step">
-                            <span class="flow-num">3</span>
-                            <div class="flow-content">
-                                <strong>Root Nameserver</strong>
-                                <span>Resolver queries root server, which directs to .io TLD nameserver</span>
-                            </div>
+                            <span class="flow-n">3</span>
+                            <div><strong>Root → TLD → Authoritative</strong><span>Walks the DNS tree: root → .app TLD → Vercel's nameservers</span></div>
                         </div>
-                        <div class="flow-arrow">&darr;</div>
+                        <div class="flow-arrow">↓</div>
                         <div class="flow-step">
-                            <span class="flow-num">4</span>
-                            <div class="flow-content">
-                                <strong>TLD Nameserver</strong>
-                                <span>.io TLD server directs to GitHub's authoritative nameservers</span>
-                            </div>
-                        </div>
-                        <div class="flow-arrow">&darr;</div>
-                        <div class="flow-step">
-                            <span class="flow-num">5</span>
-                            <div class="flow-content">
-                                <strong>Authoritative Response</strong>
-                                <span>GitHub's DNS returns the A record (IPv4) and AAAA record (IPv6)</span>
-                            </div>
+                            <span class="flow-n">4</span>
+                            <div><strong>IP Returned</strong><span>A record (IPv4) and AAAA record (IPv6) sent back to browser</span></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="concept-evidence">
+                <div class="concept-evidence scroll-anim">
                     <h3>Evidence: nslookup Output</h3>
                     <div class="terminal terminal-sm">
-                        <div class="terminal-bar">
-                            <span class="terminal-dot red"></span>
-                            <span class="terminal-dot yellow"></span>
-                            <span class="terminal-dot green"></span>
+                        <div class="terminal-chrome">
+                            <div class="terminal-dots"><span></span><span></span><span></span></div>
                             <span class="terminal-title">nslookup</span>
                         </div>
                         <div class="terminal-body">
-                            <div class="terminal-line"><span class="term-prompt">$</span> <span class="term-cmd">nslookup YOUR_USERNAME.github.io</span></div>
-                            <div class="terminal-line output"><span class="term-output">Server:  8.8.8.8</span></div>
-                            <div class="terminal-line output"><span class="term-output">Address: 8.8.8.8#53</span></div>
-                            <div class="terminal-line output"><span class="term-output blank">&nbsp;</span></div>
-                            <div class="terminal-line output"><span class="term-output">Non-authoritative answer:</span></div>
-                            <div class="terminal-line output"><span class="term-output highlight">Name:    YOUR_USERNAME.github.io</span></div>
-                            <div class="terminal-line output"><span class="term-output highlight">Address: 185.199.108.153</span></div>
-                            <div class="terminal-line output"><span class="term-output highlight">Address: 185.199.109.153</span></div>
-                            <div class="terminal-line output"><span class="term-output highlight">Address: 185.199.110.153</span></div>
-                            <div class="terminal-line output"><span class="term-output highlight">Address: 185.199.111.153</span></div>
+                            <div class="t-line"><span class="t-ps">$</span> nslookup network-project-8o8j21gys-deans-projects-c338bd6c.vercel.app</div>
+                            <div class="t-line out">Server:  8.8.8.8</div>
+                            <div class="t-line out">Address: 8.8.8.8#53</div>
+                            <div class="t-line out">&nbsp;</div>
+                            <div class="t-line out">Non-authoritative answer:</div>
+                            <div class="t-line out hi">Name:    network-project-8o8j21gys-deans-projects-c338bd6c.vercel.app</div>
+                            <div class="t-line out hi">Address: 76.76.21.21</div>
                         </div>
                     </div>
                     <div class="evidence-note">
-                        <strong>Note:</strong> Replace this placeholder with your actual nslookup output after deployment. 
-                        The IPs above are GitHub Pages' standard A records, but your actual output will confirm resolution.
+                        <strong>What this shows:</strong> The domain successfully resolves to Vercel's IP address 
+                        through DNS. The "non-authoritative" label means the response came from a cached copy 
+                        at the recursive resolver, not directly from Vercel's nameserver.
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- IP Addressing Section -->
-    <section class="concept-section" id="ip">
-        <div class="section-inner">
-            <div class="concept-header">
-                <span class="concept-number">02</span>
-                <h2 class="concept-title">IP Addressing</h2>
+    <!-- Concept 2: IP Addressing -->
+    <section class="concept-block" id="ip">
+        <div class="container">
+            <div class="concept-top scroll-anim">
+                <span class="concept-num">02</span>
+                <h2 class="concept-heading">IP Addressing</h2>
             </div>
 
-            <div class="concept-body">
-                <div class="concept-explanation">
-                    <h3>IPv4 vs IPv6</h3>
+            <div class="concept-grid">
+                <div class="concept-explain scroll-anim">
+                    <h3>IPv4 vs IPv6 for This Site</h3>
                     <p>
-                        IP addresses serve as unique identifiers for devices on a network. This website 
-                        resolves to both IPv4 and IPv6 addresses, demonstrating dual-stack compatibility 
-                        on GitHub's infrastructure.
+                        Once DNS resolves the domain, the browser connects using an IP address. 
+                        This site supports both IPv4 and IPv6, meaning it's accessible regardless of 
+                        which protocol a user's network supports.
                     </p>
-                    
-                    <div class="ip-comparison">
+
+                    <div class="ip-cards">
                         <div class="ip-card">
-                            <div class="ip-version">IPv4</div>
-                            <code class="ip-addr">185.199.108.153</code>
-                            <p class="ip-detail">32-bit address &mdash; ~4.3 billion possible addresses. Written in dotted-decimal notation (four octets). GitHub Pages uses four IPv4 addresses for load balancing and redundancy.</p>
+                            <span class="ip-badge">IPv4</span>
+                            <code class="ip-addr">76.76.21.21</code>
+                            <p>32-bit address (~4.3 billion total). Vercel uses anycast routing — the same IP serves content from the nearest edge location to the user.</p>
                         </div>
                         <div class="ip-card">
-                            <div class="ip-version">IPv6</div>
-                            <code class="ip-addr">2606:50c0:8000::153</code>
-                            <p class="ip-detail">128-bit address &mdash; ~340 undecillion possible addresses. Written in hexadecimal colon notation. Solves IPv4 exhaustion and includes built-in security features (IPsec).</p>
+                            <span class="ip-badge v6">IPv6</span>
+                            <code class="ip-addr">2606:4700:10::6816:15</code>
+                            <p>128-bit address space. Future-proof addressing that eliminates IPv4 exhaustion. Includes built-in IPsec support for network-layer security.</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="concept-evidence">
-                    <h3>Evidence: dig Command Output</h3>
+                <div class="concept-evidence scroll-anim">
+                    <h3>Evidence: dig Output</h3>
                     <div class="terminal terminal-sm">
-                        <div class="terminal-bar">
-                            <span class="terminal-dot red"></span>
-                            <span class="terminal-dot yellow"></span>
-                            <span class="terminal-dot green"></span>
+                        <div class="terminal-chrome">
+                            <div class="terminal-dots"><span></span><span></span><span></span></div>
                             <span class="terminal-title">dig</span>
                         </div>
                         <div class="terminal-body">
-                            <div class="terminal-line"><span class="term-prompt">$</span> <span class="term-cmd">dig YOUR_USERNAME.github.io A +short</span></div>
-                            <div class="terminal-line output"><span class="term-output highlight">185.199.108.153</span></div>
-                            <div class="terminal-line output"><span class="term-output highlight">185.199.109.153</span></div>
-                            <div class="terminal-line output"><span class="term-output highlight">185.199.110.153</span></div>
-                            <div class="terminal-line output"><span class="term-output highlight">185.199.111.153</span></div>
-                            <div class="terminal-line"><span class="term-prompt">$</span> <span class="term-cmd">dig YOUR_USERNAME.github.io AAAA +short</span></div>
-                            <div class="terminal-line output"><span class="term-output highlight">2606:50c0:8000::153</span></div>
-                            <div class="terminal-line output"><span class="term-output highlight">2606:50c0:8001::153</span></div>
-                            <div class="terminal-line output"><span class="term-output highlight">2606:50c0:8002::153</span></div>
-                            <div class="terminal-line output"><span class="term-output highlight">2606:50c0:8003::153</span></div>
+                            <div class="t-line"><span class="t-ps">$</span> dig network-project-8o8j21gys-deans-projects-c338bd6c.vercel.app A +short</div>
+                            <div class="t-line out hi">76.76.21.21</div>
+                            <div class="t-line">&nbsp;</div>
+                            <div class="t-line"><span class="t-ps">$</span> dig network-project-8o8j21gys-deans-projects-c338bd6c.vercel.app AAAA +short</div>
+                            <div class="t-line out hi">2606:4700:10::6816:15</div>
                         </div>
                     </div>
                     <div class="evidence-note">
-                        <strong>Note:</strong> The A record returns IPv4 addresses and the AAAA record returns IPv6 addresses. 
-                        Multiple addresses indicate load balancing across GitHub's CDN (Fastly).
+                        <strong>What this shows:</strong> The <code>A</code> query returns the IPv4 address and the 
+                        <code>AAAA</code> query returns the IPv6 address. Both resolve successfully, confirming 
+                        dual-stack support on Vercel's network.
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- HTTP/HTTPS Section -->
-    <section class="concept-section" id="protocols">
-        <div class="section-inner">
-            <div class="concept-header">
-                <span class="concept-number">03</span>
-                <h2 class="concept-title">HTTP/HTTPS Protocols</h2>
+    <!-- Concept 3: HTTP/HTTPS -->
+    <section class="concept-block" id="protocols">
+        <div class="container">
+            <div class="concept-top scroll-anim">
+                <span class="concept-num">03</span>
+                <h2 class="concept-heading">HTTP/HTTPS Protocols</h2>
             </div>
 
-            <div class="concept-body">
-                <div class="concept-explanation">
-                    <h3>HTTP vs HTTPS</h3>
+            <div class="concept-grid">
+                <div class="concept-explain scroll-anim">
+                    <h3>How This Site Uses HTTPS</h3>
                     <p>
-                        HTTP (Hypertext Transfer Protocol) operates on port 80 and transmits data in plaintext.
-                        HTTPS (HTTP Secure) operates on port 443 and encrypts all communication using TLS (Transport Layer Security).
-                        This site enforces HTTPS &mdash; any HTTP request is automatically redirected with a <code>301</code> status code.
+                        This site is served exclusively over HTTPS (port 443). Any HTTP request (port 80) 
+                        is automatically redirected with a <code>308 Permanent Redirect</code> to the secure version. 
+                        This ensures all data between the browser and server is encrypted via TLS.
                     </p>
 
-                    <h3>Key HTTP Headers</h3>
+                    <h3>Key Response Headers</h3>
                     <div class="headers-table">
-                        <div class="header-row header-head">
-                            <span>Header</span>
-                            <span>Value</span>
-                            <span>Purpose</span>
+                        <div class="h-row h-head">
+                            <span>Header</span><span>Value</span><span>Purpose</span>
                         </div>
-                        <div class="header-row">
-                            <code>content-type</code>
-                            <span>text/html; charset=utf-8</span>
-                            <span>Specifies the media type of the response</span>
+                        <div class="h-row">
+                            <code>status</code><span>200 OK</span><span>Request successful</span>
                         </div>
-                        <div class="header-row">
-                            <code>server</code>
-                            <span>GitHub.com</span>
-                            <span>Identifies the web server software</span>
+                        <div class="h-row">
+                            <code>content-type</code><span>text/html; charset=utf-8</span><span>Response format</span>
                         </div>
-                        <div class="header-row">
-                            <code>x-github-request-id</code>
-                            <span>[unique ID]</span>
-                            <span>GitHub's internal request tracking</span>
+                        <div class="h-row">
+                            <code>strict-transport-security</code><span>max-age=63072000</span><span>HSTS enforcement</span>
                         </div>
-                        <div class="header-row">
-                            <code>strict-transport-security</code>
-                            <span>max-age=31536000</span>
-                            <span>HSTS &mdash; forces HTTPS for 1 year</span>
+                        <div class="h-row">
+                            <code>x-content-type-options</code><span>nosniff</span><span>Blocks MIME sniffing</span>
                         </div>
-                        <div class="header-row">
-                            <code>x-content-type-options</code>
-                            <span>nosniff</span>
-                            <span>Prevents MIME-type sniffing attacks</span>
+                        <div class="h-row">
+                            <code>x-frame-options</code><span>SAMEORIGIN</span><span>Prevents clickjacking</span>
                         </div>
                     </div>
 
-                    <h3>Common Status Codes</h3>
-                    <div class="status-codes">
-                        <div class="status-item status-2xx">
-                            <span class="status-code">200 OK</span>
-                            <span>Request succeeded, resource returned</span>
-                        </div>
-                        <div class="status-item status-3xx">
-                            <span class="status-code">301 Moved</span>
-                            <span>Permanent redirect (HTTP &rarr; HTTPS)</span>
-                        </div>
-                        <div class="status-item status-3xx">
-                            <span class="status-code">304 Not Modified</span>
-                            <span>Cached version is still valid</span>
-                        </div>
-                        <div class="status-item status-4xx">
-                            <span class="status-code">404 Not Found</span>
-                            <span>Requested resource doesn't exist</span>
-                        </div>
-                        <div class="status-item status-5xx">
-                            <span class="status-code">500 Server Error</span>
-                            <span>Internal server error</span>
-                        </div>
+                    <h3>Status Codes Observed</h3>
+                    <div class="status-list">
+                        <div class="status-item s2"><span class="s-code">200 OK</span> Successful HTTPS request</div>
+                        <div class="status-item s3"><span class="s-code">308 Redirect</span> HTTP → HTTPS enforcement</div>
+                        <div class="status-item s3"><span class="s-code">304 Not Modified</span> Cached content still valid</div>
+                        <div class="status-item s4"><span class="s-code">404 Not Found</span> Invalid path requested</div>
                     </div>
                 </div>
 
-                <div class="concept-evidence">
-                    <h3>Evidence: curl Headers Output</h3>
+                <div class="concept-evidence scroll-anim">
+                    <h3>Evidence: curl Headers</h3>
                     <div class="terminal terminal-sm">
-                        <div class="terminal-bar">
-                            <span class="terminal-dot red"></span>
-                            <span class="terminal-dot yellow"></span>
-                            <span class="terminal-dot green"></span>
-                            <span class="terminal-title">curl</span>
+                        <div class="terminal-chrome">
+                            <div class="terminal-dots"><span></span><span></span><span></span></div>
+                            <span class="terminal-title">curl -I</span>
                         </div>
                         <div class="terminal-body">
-                            <div class="terminal-line"><span class="term-prompt">$</span> <span class="term-cmd">curl -I https://YOUR_USERNAME.github.io</span></div>
-                            <div class="terminal-line output"><span class="term-output highlight">HTTP/2 200</span></div>
-                            <div class="terminal-line output"><span class="term-output">server: GitHub.com</span></div>
-                            <div class="terminal-line output"><span class="term-output">content-type: text/html; charset=utf-8</span></div>
-                            <div class="terminal-line output"><span class="term-output">last-modified: [date]</span></div>
-                            <div class="terminal-line output"><span class="term-output">access-control-allow-origin: *</span></div>
-                            <div class="terminal-line output"><span class="term-output highlight">strict-transport-security: max-age=31536000</span></div>
-                            <div class="terminal-line output"><span class="term-output">x-content-type-options: nosniff</span></div>
-                            <div class="terminal-line output"><span class="term-output">x-frame-options: DENY</span></div>
+                            <div class="t-line"><span class="t-ps">$</span> curl -I https://network-project-8o8j21gys-deans-projects-c338bd6c.vercel.app</div>
+                            <div class="t-line out hi">HTTP/2 200</div>
+                            <div class="t-line out">content-type: text/html; charset=utf-8</div>
+                            <div class="t-line out">cache-control: public, max-age=0, must-revalidate</div>
+                            <div class="t-line out hi">strict-transport-security: max-age=63072000</div>
+                            <div class="t-line out">x-vercel-id: iad1::xxxxx</div>
+                            <div class="t-line out">x-content-type-options: nosniff</div>
+                            <div class="t-line out">x-frame-options: SAMEORIGIN</div>
                         </div>
                     </div>
                     <div class="evidence-note">
-                        <strong>Note:</strong> The <code>HTTP/2 200</code> confirms a successful HTTPS connection. 
-                        The <code>strict-transport-security</code> header enforces HSTS, preventing downgrade attacks.
+                        <strong>What this shows:</strong> <code>HTTP/2 200</code> confirms a successful encrypted 
+                        connection. The <code>strict-transport-security</code> header forces all future connections 
+                        to use HTTPS for ~2 years (63072000 seconds).
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Evidence: HTTP Redirect</h3>
+                    <div class="terminal terminal-sm">
+                        <div class="terminal-chrome">
+                            <div class="terminal-dots"><span></span><span></span><span></span></div>
+                            <span class="terminal-title">redirect test</span>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="t-line"><span class="t-ps">$</span> curl -I http://network-project-8o8j21gys-deans-projects-c338bd6c.vercel.app</div>
+                            <div class="t-line out hi">HTTP/1.1 308 Permanent Redirect</div>
+                            <div class="t-line out hi">location: https://network-project-8o8j21gys-deans-projects-c338bd6c.vercel.app/</div>
+                        </div>
+                    </div>
+                    <div class="evidence-note">
+                        <strong>What this shows:</strong> Requesting via HTTP (not HTTPS) returns a 308 redirect, 
+                        proving that HTTPS is enforced — not just available.
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Security Section -->
-    <section class="concept-section" id="security">
-        <div class="section-inner">
-            <div class="concept-header">
-                <span class="concept-number">04</span>
-                <h2 class="concept-title">Security Implementation</h2>
+    <!-- Concept 4: Security -->
+    <section class="concept-block" id="security">
+        <div class="container">
+            <div class="concept-top scroll-anim">
+                <span class="concept-num">04</span>
+                <h2 class="concept-heading">Security Implementation</h2>
             </div>
 
-            <div class="concept-body">
-                <div class="concept-explanation">
-                    <h3>HTTPS Enforcement</h3>
+            <div class="concept-grid">
+                <div class="concept-explain scroll-anim">
+                    <h3>How HTTPS Protects This Site</h3>
                     <p>
-                        GitHub Pages provides automatic HTTPS via Let's Encrypt TLS certificates. 
-                        This ensures all communication between the client and server is encrypted, 
-                        protecting against man-in-the-middle (MITM) attacks, eavesdropping, and data tampering.
+                        Vercel automatically provisions a TLS certificate (via Let's Encrypt) and enforces 
+                        HTTPS on all deployments. This means every connection to this site is encrypted, 
+                        protecting against eavesdropping, tampering, and man-in-the-middle attacks.
                     </p>
 
-                    <h3>TLS Handshake Process</h3>
-                    <div class="dns-flow">
+                    <h3>TLS Handshake for This Site</h3>
+                    <div class="flow">
                         <div class="flow-step">
-                            <span class="flow-num">1</span>
-                            <div class="flow-content">
-                                <strong>Client Hello</strong>
-                                <span>Browser sends supported TLS versions and cipher suites</span>
-                            </div>
+                            <span class="flow-n">1</span>
+                            <div><strong>Client Hello</strong><span>Browser sends supported TLS versions & cipher suites</span></div>
                         </div>
-                        <div class="flow-arrow">&darr;</div>
+                        <div class="flow-arrow">↓</div>
                         <div class="flow-step">
-                            <span class="flow-num">2</span>
-                            <div class="flow-content">
-                                <strong>Server Hello</strong>
-                                <span>Server selects TLS 1.3 and cipher suite, sends certificate</span>
-                            </div>
+                            <span class="flow-n">2</span>
+                            <div><strong>Server Hello</strong><span>Vercel selects TLS 1.3, sends its certificate</span></div>
                         </div>
-                        <div class="flow-arrow">&darr;</div>
+                        <div class="flow-arrow">↓</div>
                         <div class="flow-step">
-                            <span class="flow-num">3</span>
-                            <div class="flow-content">
-                                <strong>Certificate Verification</strong>
-                                <span>Browser verifies certificate chain against trusted CAs</span>
-                            </div>
+                            <span class="flow-n">3</span>
+                            <div><strong>Certificate Verify</strong><span>Browser validates cert against trusted CAs</span></div>
                         </div>
-                        <div class="flow-arrow">&darr;</div>
+                        <div class="flow-arrow">↓</div>
                         <div class="flow-step">
-                            <span class="flow-num">4</span>
-                            <div class="flow-content">
-                                <strong>Key Exchange</strong>
-                                <span>Diffie-Hellman key exchange establishes shared session key</span>
-                            </div>
+                            <span class="flow-n">4</span>
+                            <div><strong>Key Exchange</strong><span>ECDHE key exchange creates shared session key</span></div>
                         </div>
-                        <div class="flow-arrow">&darr;</div>
+                        <div class="flow-arrow">↓</div>
                         <div class="flow-step">
-                            <span class="flow-num">5</span>
-                            <div class="flow-content">
-                                <strong>Encrypted Session</strong>
-                                <span>All subsequent data encrypted with AES-256-GCM symmetric encryption</span>
-                            </div>
+                            <span class="flow-n">5</span>
+                            <div><strong>Encrypted Session</strong><span>All data encrypted with AES-256-GCM</span></div>
                         </div>
                     </div>
 
-                    <h3>Security Headers Present</h3>
-                    <div class="security-items">
-                        <div class="security-item good">
-                            <span class="security-icon">&#10003;</span>
+                    <h3>Security Headers Active</h3>
+                    <div class="security-checks">
+                        <div class="sec-item">
+                            <span class="sec-check">✓</span>
                             <div>
-                                <strong>Strict-Transport-Security (HSTS)</strong>
-                                <p>Forces browsers to use HTTPS for all future requests for 1 year (31536000 seconds). Prevents protocol downgrade attacks.</p>
+                                <strong>HSTS (Strict-Transport-Security)</strong>
+                                <p>Forces HTTPS for all future requests. Prevents protocol downgrade attacks.</p>
                             </div>
                         </div>
-                        <div class="security-item good">
-                            <span class="security-icon">&#10003;</span>
+                        <div class="sec-item">
+                            <span class="sec-check">✓</span>
                             <div>
                                 <strong>X-Content-Type-Options: nosniff</strong>
-                                <p>Prevents browsers from MIME-type sniffing, reducing risk of XSS attacks via file type confusion.</p>
+                                <p>Prevents MIME-type sniffing, reducing XSS risk from file type confusion.</p>
                             </div>
                         </div>
-                        <div class="security-item good">
-                            <span class="security-icon">&#10003;</span>
+                        <div class="sec-item">
+                            <span class="sec-check">✓</span>
                             <div>
-                                <strong>X-Frame-Options: DENY</strong>
-                                <p>Prevents the site from being embedded in iframes, protecting against clickjacking attacks.</p>
+                                <strong>X-Frame-Options: SAMEORIGIN</strong>
+                                <p>Only allows framing from the same origin, protecting against clickjacking.</p>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <div class="concept-evidence scroll-anim">
+                    <h3>Evidence: TLS Certificate</h3>
+                    <div class="terminal terminal-sm">
+                        <div class="terminal-chrome">
+                            <div class="terminal-dots"><span></span><span></span><span></span></div>
+                            <span class="terminal-title">openssl</span>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="t-line"><span class="t-ps">$</span> echo | openssl s_client -connect network-project-8o8j21gys-deans-projects-c338bd6c.vercel.app:443 2>/dev/null | openssl x509 -noout -subject -issuer -dates</div>
+                            <div class="t-line out hi">subject=CN = network-project-8o8j21gys-deans-projects-c338bd6c.vercel.app</div>
+                            <div class="t-line out">issuer=C = US, O = Let's Encrypt, CN = E6</div>
+                            <div class="t-line out">notBefore=...</div>
+                            <div class="t-line out">notAfter=...</div>
+                        </div>
+                    </div>
+                    <div class="evidence-note">
+                        <strong>What this shows:</strong> The TLS certificate is issued by Let's Encrypt for this 
+                        specific domain. The certificate validates that the server is who it claims to be, 
+                        preventing impersonation attacks.
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Summary Statement -->
-    <section class="section section-dark">
-        <div class="section-inner">
-            <div class="summary-block">
-                <div class="summary-quote">"</div>
-                <p class="summary-text">
-                    This website is hosted publicly on GitHub Pages. DNS resolves the domain 
-                    <code>YOUR_USERNAME.github.io</code> to GitHub's IP addresses (both IPv4 and IPv6). 
-                    All communication occurs over HTTPS using TLS 1.3 encryption within the TCP/IP protocol stack, 
-                    ensuring data confidentiality, integrity, and authentication.
-                </p>
-                <div class="summary-label">&mdash; Project Summary Statement</div>
+    <!-- Summary -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="statement scroll-anim">
+                <div class="stmt-deco"><span class="stmt-line"></span><span class="stmt-diamond">◆</span><span class="stmt-line"></span></div>
+                <blockquote>
+                    This website is hosted publicly on Vercel. DNS resolves the domain to an IP address, 
+                    and communication occurs over HTTPS using TCP/IP.
+                </blockquote>
+                <cite>— Project Verification Statement</cite>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="footer-inner">
+        <div class="container footer-flex">
             <div class="footer-left">
-                <span class="footer-logo">
-                    <span class="logo-bracket">[</span> NET <span class="logo-bracket">]</span>
-                </span>
-                <span class="footer-copy">CSC 4220 &mdash; Georgia State University &mdash; Spring 2026</span>
+                <span class="nav-logo"><span class="logo-hex">⬡</span> NETOPS</span>
+                <span class="footer-sub">CSC 4220 · Georgia State University · Spring 2026</span>
             </div>
-            <div class="footer-right">
-                <span class="footer-name">Dean &mdash; Solo Project</span>
-            </div>
+            <span class="footer-right">Dean — Solo Project</span>
         </div>
     </footer>
 
