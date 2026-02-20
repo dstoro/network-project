@@ -34,11 +34,9 @@
         </div>
     </header>
 
-    <!-- Info Cards -->
     <section class="section">
         <div class="container">
             <div class="about-grid">
-                <!-- Project Info -->
                 <div class="about-card scroll-anim" style="--i:0">
                     <h3 class="about-card-title">Project Info</h3>
                     <div class="info-rows">
@@ -46,10 +44,11 @@
                         <div class="info-row"><span class="info-key">Instructor</span><span class="info-val">Roya Hosseini</span></div>
                         <div class="info-row"><span class="info-key">Semester</span><span class="info-val">Spring 2026</span></div>
                         <div class="info-row"><span class="info-key">University</span><span class="info-val">Georgia State University</span></div>
+                        <div class="info-row"><span class="info-key">Website</span><span class="info-val">network-project-self.vercel.app</span></div>
+                        <div class="info-row"><span class="info-key">Repository</span><span class="info-val">github.com/dstoro/network-project</span></div>
                     </div>
                 </div>
 
-                <!-- Team -->
                 <div class="about-card scroll-anim" style="--i:1">
                     <h3 class="about-card-title">Team</h3>
                     <div class="team-member">
@@ -62,7 +61,6 @@
                     </div>
                 </div>
 
-                <!-- Setup Steps -->
                 <div class="about-card about-wide scroll-anim" style="--i:2">
                     <h3 class="about-card-title">Setup Steps</h3>
                     <div class="steps">
@@ -70,72 +68,71 @@
                             <span class="step-n">01</span>
                             <div>
                                 <strong>Repository Creation</strong>
-                                <p>Created a GitHub repository (<code>network-project</code>) for version control and continuous deployment integration with Vercel.</p>
+                                <p>Created a GitHub repository (<code>dstoro/network-project</code>) for version control and continuous deployment integration with Vercel.</p>
                             </div>
                         </div>
                         <div class="step">
                             <span class="step-n">02</span>
                             <div>
                                 <strong>Website Development</strong>
-                                <p>Built a three-page site using HTML5, CSS3, and vanilla JavaScript. Dark theme with terminal-inspired UI reflecting the networking/cybersecurity subject matter.</p>
+                                <p>Built a three-page site using HTML5, CSS3, and vanilla JavaScript in VS Code. Dark theme with terminal-inspired UI and particle animations reflecting the networking/cybersecurity subject matter.</p>
                             </div>
                         </div>
                         <div class="step">
                             <span class="step-n">03</span>
                             <div>
                                 <strong>Vercel Deployment</strong>
-                                <p>Connected the GitHub repo to Vercel. Every push to <code>main</code> triggers an automatic rebuild and deployment to the edge network.</p>
+                                <p>Connected the GitHub repo to Vercel via GitHub integration. Every push to <code>main</code> triggers an automatic rebuild and deployment to Vercel's edge network. Site deployed at <code>network-project-self.vercel.app</code>.</p>
                             </div>
                         </div>
                         <div class="step">
                             <span class="step-n">04</span>
                             <div>
                                 <strong>HTTPS Enforcement</strong>
-                                <p>Vercel automatically provisions a Let's Encrypt TLS certificate and enforces HTTPS on all routes. No manual configuration needed.</p>
+                                <p>Vercel automatically provisions a Let's Encrypt TLS certificate and enforces HTTPS via 308 Permanent Redirect on all HTTP requests. HSTS header set with <code>max-age=63072000</code> (~2 years).</p>
                             </div>
                         </div>
                         <div class="step">
                             <span class="step-n">05</span>
                             <div>
                                 <strong>Networking Verification</strong>
-                                <p>Ran <code>nslookup</code>, <code>dig</code>, <code>curl -I</code>, and <code>openssl</code> commands to gather evidence of DNS resolution, IP addressing, HTTPS headers, and TLS certification.</p>
+                                <p>Ran <code>nslookup</code>, <code>dig</code> (A and AAAA queries), and <code>curl -I</code> (both HTTP and HTTPS) to gather real evidence of DNS resolution, IP addressing, HTTPS headers, and redirect enforcement.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Challenges -->
                 <div class="about-card about-wide scroll-anim" style="--i:3">
                     <h3 class="about-card-title">Challenges & Solutions</h3>
                     <div class="challenges">
                         <div class="challenge">
                             <div class="ch-row">
                                 <span class="ch-tag problem">Challenge</span>
-                                DNS propagation delay — site not resolving immediately after deployment
+                                DNS propagation delay — site not resolving immediately after initial deployment
                             </div>
                             <div class="ch-row">
                                 <span class="ch-tag solution">Solution</span>
-                                Waited for Vercel's DNS to propagate (~5 min). Used <code>nslookup</code> with Google's public DNS (8.8.8.8) to bypass local cache and verify resolution.
+                                Waited for Vercel's DNS to propagate (~5 min). Used <code>nslookup</code> to verify resolution and confirmed the domain resolved to <code>216.198.79.67</code> and <code>64.29.17.67</code>.
                             </div>
                         </div>
                         <div class="challenge">
                             <div class="ch-row">
                                 <span class="ch-tag problem">Challenge</span>
-                                Verifying HTTPS is enforced, not just available
+                                No IPv6 (AAAA) record returned for the Vercel subdomain
                             </div>
                             <div class="ch-row">
                                 <span class="ch-tag solution">Solution</span>
-                                Ran <code>curl -I http://...</code> (HTTP, not HTTPS) and confirmed a <code>308 Permanent Redirect</code> to the HTTPS version, proving enforcement.
+                                Documented this honestly as a finding. Ran <code>dig AAAA +short</code> which returned no output, confirming IPv4-only. Explained that Vercel's default subdomains may not include IPv6 records, unlike custom domains.
                             </div>
                         </div>
                         <div class="challenge">
                             <div class="ch-row">
                                 <span class="ch-tag problem">Challenge</span>
-                                Distinguishing between A records (IPv4) and AAAA records (IPv6) in DNS output
+                                Verifying that HTTPS is enforced, not just available
                             </div>
                             <div class="ch-row">
                                 <span class="ch-tag solution">Solution</span>
-                                Used <code>dig</code> with explicit record type flags (<code>A</code> for IPv4, <code>AAAA</code> for IPv6) to query each separately and confirm dual-stack support.
+                                Ran <code>curl -I http://network-project-self.vercel.app</code> (plain HTTP) and confirmed a <code>308 Permanent Redirect</code> with <code>Location: https://...</code>, proving enforcement rather than just availability.
                             </div>
                         </div>
                     </div>

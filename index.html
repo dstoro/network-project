@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Particle canvas background -->
     <canvas id="particles"></canvas>
     <div class="scanlines"></div>
     <div class="noise"></div>
@@ -18,18 +17,13 @@
     <!-- Navigation -->
     <nav class="nav">
         <div class="nav-inner">
-            <a href="index.html" class="nav-logo">
-                <span class="logo-hex">⬡</span> NETOPS
-            </a>
+            <a href="index.html" class="nav-logo"><span class="logo-hex">⬡</span> NETOPS</a>
             <div class="nav-links">
                 <a href="index.html" class="nav-link active">Home</a>
                 <a href="networking.html" class="nav-link">Networking</a>
                 <a href="about.html" class="nav-link">About</a>
             </div>
-            <div class="nav-status">
-                <span class="status-dot"></span>
-                <span class="status-text">DEPLOYED</span>
-            </div>
+            <div class="nav-status"><span class="status-dot"></span><span class="status-text">DEPLOYED</span></div>
         </div>
     </nav>
 
@@ -112,8 +106,8 @@
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10A15.3 15.3 0 0112 2z"/></svg>
                     </div>
                     <h3>DNS Resolution</h3>
-                    <p>This site's domain resolves through the DNS hierarchy — root servers → TLD nameservers → authoritative nameservers — returning IP addresses so browsers can connect.</p>
-                    <span class="card-tag">nslookup · dig · A/AAAA records</span>
+                    <p>DNS resolves <code>network-project-self.vercel.app</code> to two IPv4 addresses (<code>216.198.79.67</code> and <code>64.29.17.67</code>) through the DNS hierarchy.</p>
+                    <span class="card-tag">nslookup · dig · A records</span>
                 </div>
                 <div class="concept-card scroll-anim" style="--i:1">
                     <div class="card-glow"></div>
@@ -122,8 +116,8 @@
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M8 7h8M8 12h8M8 17h4"/></svg>
                     </div>
                     <h3>IP Addressing</h3>
-                    <p>The domain resolves to both IPv4 and IPv6 addresses on Vercel's edge network, demonstrating dual-stack connectivity across their global CDN.</p>
-                    <span class="card-tag">IPv4 · IPv6 · Dual-stack</span>
+                    <p>Two IPv4 addresses provide load balancing across Vercel's edge network. No AAAA (IPv6) record is configured for this subdomain deployment.</p>
+                    <span class="card-tag">IPv4 · Load balancing · Anycast</span>
                 </div>
                 <div class="concept-card scroll-anim" style="--i:2">
                     <div class="card-glow"></div>
@@ -132,8 +126,8 @@
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
                     </div>
                     <h3>HTTP/HTTPS Protocols</h3>
-                    <p>All traffic is served over HTTPS (port 443) with TLS encryption. HTTP requests are redirected. Response headers and status codes are documented with evidence.</p>
-                    <span class="card-tag">TLS 1.3 · 200 OK · 308 Redirect</span>
+                    <p>All traffic served over HTTPS (HTTP/2 200). HTTP requests return a 308 Permanent Redirect. HSTS header enforced with a 2-year max-age.</p>
+                    <span class="card-tag">HTTP/2 · 200 OK · 308 Redirect</span>
                 </div>
                 <div class="concept-card scroll-anim" style="--i:3">
                     <div class="card-glow"></div>
@@ -142,8 +136,8 @@
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
                     </div>
                     <h3>Security</h3>
-                    <p>HTTPS enforced automatically via Vercel. Security headers including HSTS, X-Content-Type-Options, and X-Frame-Options protect against MITM, XSS, and clickjacking.</p>
-                    <span class="card-tag">HSTS · Certificate · Headers</span>
+                    <p>HTTPS enforced via 308 redirect. HSTS active with <code>includeSubDomains</code> and <code>preload</code> directives. TLS certificate provisioned by Let's Encrypt.</p>
+                    <span class="card-tag">HSTS · TLS · Let's Encrypt</span>
                 </div>
             </div>
         </div>
@@ -164,7 +158,7 @@
                 <div class="chip scroll-anim" style="--i:2"><span class="chip-key">Version Control</span><span class="chip-val">Git + GitHub</span></div>
                 <div class="chip scroll-anim" style="--i:3"><span class="chip-key">Security</span><span class="chip-val">HTTPS / TLS 1.3</span></div>
                 <div class="chip scroll-anim" style="--i:4"><span class="chip-key">DNS</span><span class="chip-val">Vercel DNS</span></div>
-                <div class="chip scroll-anim" style="--i:5"><span class="chip-key">CDN</span><span class="chip-val">Vercel Edge</span></div>
+                <div class="chip scroll-anim" style="--i:5"><span class="chip-key">CDN</span><span class="chip-val">Vercel Edge (iad1)</span></div>
             </div>
         </div>
     </section>
@@ -175,8 +169,9 @@
             <div class="statement scroll-anim">
                 <div class="stmt-deco"><span class="stmt-line"></span><span class="stmt-diamond">◆</span><span class="stmt-line"></span></div>
                 <blockquote>
-                    This website is hosted publicly on Vercel. DNS resolves the domain to an IP address, 
-                    and communication occurs over HTTPS using TCP/IP.
+                    This website is hosted publicly on Vercel at <code>network-project-self.vercel.app</code>. 
+                    DNS resolves the domain to IP addresses <code>216.198.79.67</code> and <code>64.29.17.67</code>, 
+                    and all communication occurs over HTTPS using TLS encryption within the TCP/IP protocol stack.
                 </blockquote>
                 <cite>— Project Verification Statement</cite>
             </div>

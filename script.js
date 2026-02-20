@@ -38,7 +38,6 @@ if (canvas) {
             if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
             if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
 
-            // Mouse repulsion
             if (mouse.x !== null) {
                 const dx = this.x - mouse.x;
                 const dy = this.y - mouse.y;
@@ -65,7 +64,6 @@ if (canvas) {
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Draw connections
         for (let i = 0; i < particles.length; i++) {
             for (let j = i + 1; j < particles.length; j++) {
                 const dx = particles[i].x - particles[j].x;
@@ -133,24 +131,26 @@ document.querySelectorAll('.counter').forEach(el => {
 });
 
 // =============================================
-// HERO TERMINAL TYPING
+// HERO TERMINAL TYPING (Real data)
 // =============================================
 const heroTerminal = document.getElementById('heroTerminal');
 if (heroTerminal) {
     const lines = [
-        { type: 'cmd', text: '$ nslookup network-project.vercel.app' },
-        { type: 'out', text: 'Server:  8.8.8.8' },
-        { type: 'out', text: 'Address: 8.8.8.8#53' },
+        { type: 'cmd', text: '$ nslookup network-project-self.vercel.app' },
+        { type: 'out', text: 'Server:  2600:6c5a:557f:9314::1' },
+        { type: 'out', text: 'Address: 2600:6c5a:557f:9314::1#53' },
         { type: 'out', text: '' },
         { type: 'out', text: 'Non-authoritative answer:' },
-        { type: 'hi', text: 'Name:    network-project.vercel.app' },
-        { type: 'hi', text: 'Address: 76.76.21.21' },
+        { type: 'hi', text: 'Name:    network-project-self.vercel.app' },
+        { type: 'hi', text: 'Address: 216.198.79.67' },
+        { type: 'hi', text: 'Address: 64.29.17.67' },
         { type: 'blank', text: '' },
-        { type: 'cmd', text: '$ curl -I https://network-project.vercel.app' },
+        { type: 'cmd', text: '$ curl -I https://network-project-self.vercel.app' },
         { type: 'hi', text: 'HTTP/2 200' },
         { type: 'out', text: 'content-type: text/html; charset=utf-8' },
+        { type: 'out', text: 'server: Vercel' },
         { type: 'hi', text: 'strict-transport-security: max-age=63072000' },
-        { type: 'out', text: 'x-content-type-options: nosniff' },
+        { type: 'out', text: 'x-vercel-cache: HIT' },
         { type: 'cursor', text: '' },
     ];
 
@@ -194,12 +194,11 @@ if (heroTerminal) {
         setTimeout(addLine, delay);
     }
 
-    // Start after page load animation
     setTimeout(addLine, 1500);
 }
 
 // =============================================
-// SMOOTH REVEAL ON NAV CLICK
+// SMOOTH SCROLL
 // =============================================
 document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', (e) => {

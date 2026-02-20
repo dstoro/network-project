@@ -54,30 +54,30 @@
                 <div class="concept-explain scroll-anim">
                     <h3>How DNS Works for This Site</h3>
                     <p>
-                        When you visit this website, your browser doesn't know where it lives on the internet. 
-                        It only has the domain name. DNS translates that domain into an IP address your browser 
-                        can connect to. Here's exactly what happens:
+                        When you visit <code>network-project-self.vercel.app</code>, your browser doesn't know 
+                        where it lives on the internet. It only has the domain name. DNS translates that domain 
+                        into an IP address your browser can connect to. Here's exactly what happens for this site:
                     </p>
 
                     <div class="flow">
                         <div class="flow-step">
                             <span class="flow-n">1</span>
-                            <div><strong>Browser Cache</strong><span>Checks if this domain was recently resolved</span></div>
+                            <div><strong>Browser Cache Check</strong><span>Browser checks if this domain was recently resolved locally</span></div>
                         </div>
                         <div class="flow-arrow">↓</div>
                         <div class="flow-step">
                             <span class="flow-n">2</span>
-                            <div><strong>Recursive Resolver</strong><span>Queries ISP or public DNS (8.8.8.8 / 1.1.1.1)</span></div>
+                            <div><strong>Recursive Resolver</strong><span>Query sent to the ISP's recursive DNS resolver (in this case, <code>2600:6c5a:557f:9314::1</code>)</span></div>
                         </div>
                         <div class="flow-arrow">↓</div>
                         <div class="flow-step">
                             <span class="flow-n">3</span>
-                            <div><strong>Root → TLD → Authoritative</strong><span>Walks the DNS tree: root → .app TLD → Vercel's nameservers</span></div>
+                            <div><strong>Root → TLD → Authoritative</strong><span>Resolver walks the DNS tree: root server → .app TLD nameserver → Vercel's authoritative nameservers</span></div>
                         </div>
                         <div class="flow-arrow">↓</div>
                         <div class="flow-step">
                             <span class="flow-n">4</span>
-                            <div><strong>IP Returned</strong><span>A record (IPv4) and AAAA record (IPv6) sent back to browser</span></div>
+                            <div><strong>IP Addresses Returned</strong><span>Vercel's DNS returns two A records: <code>216.198.79.67</code> and <code>64.29.17.67</code></span></div>
                         </div>
                     </div>
                 </div>
@@ -91,18 +91,21 @@
                         </div>
                         <div class="terminal-body">
                             <div class="t-line"><span class="t-ps">$</span> nslookup network-project-self.vercel.app</div>
-                            <div class="t-line out">Server:  8.8.8.8</div>
-                            <div class="t-line out">Address: 8.8.8.8#53</div>
+                            <div class="t-line out">Server:  2600:6c5a:557f:9314::1</div>
+                            <div class="t-line out">Address: 2600:6c5a:557f:9314::1#53</div>
                             <div class="t-line out">&nbsp;</div>
                             <div class="t-line out">Non-authoritative answer:</div>
                             <div class="t-line out hi">Name:    network-project-self.vercel.app</div>
-                            <div class="t-line out hi">Address: 76.76.21.21</div>
+                            <div class="t-line out hi">Address: 216.198.79.67</div>
+                            <div class="t-line out hi">Name:    network-project-self.vercel.app</div>
+                            <div class="t-line out hi">Address: 64.29.17.67</div>
                         </div>
                     </div>
                     <div class="evidence-note">
-                        <strong>What this shows:</strong> The domain successfully resolves to Vercel's IP address 
-                        through DNS. The "non-authoritative" label means the response came from a cached copy 
-                        at the recursive resolver, not directly from Vercel's nameserver.
+                        <strong>What this shows:</strong> The domain <code>network-project-self.vercel.app</code> 
+                        successfully resolves to two IPv4 addresses (<code>216.198.79.67</code> and <code>64.29.17.67</code>) 
+                        through the recursive DNS resolver. The "non-authoritative" label means the response came from a 
+                        cached copy at the resolver, not directly from Vercel's nameserver — this is normal and expected for frequently-accessed domains.
                     </div>
                 </div>
             </div>
@@ -119,46 +122,68 @@
 
             <div class="concept-grid">
                 <div class="concept-explain scroll-anim">
-                    <h3>IPv4 vs IPv6 for This Site</h3>
+                    <h3>IPv4 Addressing for This Site</h3>
                     <p>
-                        Once DNS resolves the domain, the browser connects using an IP address. 
-                        This site supports both IPv4 and IPv6, meaning it's accessible regardless of 
-                        which protocol a user's network supports.
+                        Once DNS resolves the domain, the browser connects to the server using an IP address. 
+                        This site resolves to <strong>two IPv4 addresses</strong>, which Vercel uses for 
+                        load balancing and redundancy — if one server becomes unavailable, traffic is routed to the other.
                     </p>
 
                     <div class="ip-cards">
                         <div class="ip-card">
-                            <span class="ip-badge">IPv4</span>
-                            <code class="ip-addr">76.76.21.21</code>
-                            <p>32-bit address (~4.3 billion total). Vercel uses anycast routing — the same IP serves content from the nearest edge location to the user.</p>
+                            <span class="ip-badge">IPv4 — Primary</span>
+                            <code class="ip-addr">216.198.79.67</code>
+                            <p>32-bit address written in dotted-decimal notation. Vercel uses anycast routing, meaning this single IP maps to the nearest edge server to the user for low latency.</p>
                         </div>
                         <div class="ip-card">
-                            <span class="ip-badge v6">IPv6</span>
-                            <code class="ip-addr">2606:4700:10::6816:15</code>
-                            <p>128-bit address space. Future-proof addressing that eliminates IPv4 exhaustion. Includes built-in IPsec support for network-layer security.</p>
+                            <span class="ip-badge">IPv4 — Secondary</span>
+                            <code class="ip-addr">64.29.17.67</code>
+                            <p>A second A record provides failover capability. If the primary server is unreachable, DNS round-robin directs the browser to this alternate address.</p>
                         </div>
                     </div>
+
+                    <h3>IPv6 Status</h3>
+                    <p>
+                        The <code>dig AAAA</code> query returned no results, meaning this deployment currently 
+                        does not have an IPv6 (AAAA) record configured. The site is accessible exclusively via IPv4. 
+                        While IPv6 adoption is growing to address IPv4 address exhaustion (~4.3 billion addresses), 
+                        many CDN providers still serve content primarily over IPv4.
+                    </p>
                 </div>
 
                 <div class="concept-evidence scroll-anim">
-                    <h3>Evidence: dig Output</h3>
+                    <h3>Evidence: dig Output (IPv4)</h3>
                     <div class="terminal terminal-sm">
                         <div class="terminal-chrome">
                             <div class="terminal-dots"><span></span><span></span><span></span></div>
-                            <span class="terminal-title">dig</span>
+                            <span class="terminal-title">dig A</span>
                         </div>
                         <div class="terminal-body">
                             <div class="t-line"><span class="t-ps">$</span> dig network-project-self.vercel.app A +short</div>
-                            <div class="t-line out hi">76.76.21.21</div>
-                            <div class="t-line">&nbsp;</div>
-                            <div class="t-line"><span class="t-ps">$</span> dig network-project-self.vercel.app AAAA +short</div>
-                            <div class="t-line out hi">2606:4700:10::6816:15</div>
+                            <div class="t-line out hi">216.198.79.67</div>
+                            <div class="t-line out hi">64.29.17.67</div>
                         </div>
                     </div>
                     <div class="evidence-note">
-                        <strong>What this shows:</strong> The <code>A</code> query returns the IPv4 address and the 
-                        <code>AAAA</code> query returns the IPv6 address. Both resolve successfully, confirming 
-                        dual-stack support on Vercel's network.
+                        <strong>What this shows:</strong> The <code>A</code> record query returns two IPv4 addresses, 
+                        confirming load-balanced DNS resolution. Both IPs point to Vercel's edge network infrastructure.
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Evidence: dig Output (IPv6)</h3>
+                    <div class="terminal terminal-sm">
+                        <div class="terminal-chrome">
+                            <div class="terminal-dots"><span></span><span></span><span></span></div>
+                            <span class="terminal-title">dig AAAA</span>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="t-line"><span class="t-ps">$</span> dig network-project-self.vercel.app AAAA +short</div>
+                            <div class="t-line out" style="color: var(--text3); font-style: italic;">(no output — no AAAA record configured)</div>
+                        </div>
+                    </div>
+                    <div class="evidence-note">
+                        <strong>What this shows:</strong> No AAAA record exists for this domain, meaning the site is 
+                        currently IPv4-only. This is common for Vercel's default subdomain deployments. IPv6 support 
+                        is typically available when using a custom domain with compatible DNS providers.
                     </div>
                 </div>
             </div>
@@ -177,81 +202,96 @@
                 <div class="concept-explain scroll-anim">
                     <h3>How This Site Uses HTTPS</h3>
                     <p>
-                        This site is served exclusively over HTTPS (port 443). Any HTTP request (port 80) 
-                        is automatically redirected with a <code>308 Permanent Redirect</code> to the secure version. 
-                        This ensures all data between the browser and server is encrypted via TLS.
+                        This site is served exclusively over HTTPS (port 443) using HTTP/2. Any request made 
+                        over plain HTTP (port 80) is immediately redirected with a <code>308 Permanent Redirect</code> 
+                        to the HTTPS version. This ensures all data exchanged between the browser and Vercel's 
+                        servers is encrypted via TLS.
                     </p>
 
-                    <h3>Key Response Headers</h3>
+                    <h3>Response Headers from This Site</h3>
                     <div class="headers-table">
                         <div class="h-row h-head">
                             <span>Header</span><span>Value</span><span>Purpose</span>
                         </div>
                         <div class="h-row">
-                            <code>status</code><span>200 OK</span><span>Request successful</span>
+                            <code>status</code><span>200</span><span>Request succeeded — page returned</span>
                         </div>
                         <div class="h-row">
-                            <code>content-type</code><span>text/html; charset=utf-8</span><span>Response format</span>
+                            <code>content-type</code><span>text/html; charset=utf-8</span><span>HTML document with UTF-8 encoding</span>
                         </div>
                         <div class="h-row">
-                            <code>strict-transport-security</code><span>max-age=63072000</span><span>HSTS enforcement</span>
+                            <code>server</code><span>Vercel</span><span>Identifies hosting platform</span>
                         </div>
                         <div class="h-row">
-                            <code>x-content-type-options</code><span>nosniff</span><span>Blocks MIME sniffing</span>
+                            <code>strict-transport-security</code><span>max-age=63072000; includeSubDomains; preload</span><span>HSTS — forces HTTPS for ~2 years</span>
                         </div>
                         <div class="h-row">
-                            <code>x-frame-options</code><span>SAMEORIGIN</span><span>Prevents clickjacking</span>
+                            <code>cache-control</code><span>public, max-age=0, must-revalidate</span><span>Always check for fresh content</span>
+                        </div>
+                        <div class="h-row">
+                            <code>x-vercel-cache</code><span>HIT</span><span>Served from Vercel's CDN cache</span>
                         </div>
                     </div>
 
                     <h3>Status Codes Observed</h3>
                     <div class="status-list">
-                        <div class="status-item s2"><span class="s-code">200 OK</span> Successful HTTPS request</div>
-                        <div class="status-item s3"><span class="s-code">308 Redirect</span> HTTP → HTTPS enforcement</div>
-                        <div class="status-item s3"><span class="s-code">304 Not Modified</span> Cached content still valid</div>
+                        <div class="status-item s2"><span class="s-code">200 OK</span> Successful HTTPS request — page served</div>
+                        <div class="status-item s3"><span class="s-code">308 Redirect</span> HTTP → HTTPS enforcement (permanent)</div>
+                        <div class="status-item s3"><span class="s-code">304 Not Modified</span> Browser cache still valid</div>
                         <div class="status-item s4"><span class="s-code">404 Not Found</span> Invalid path requested</div>
                     </div>
                 </div>
 
                 <div class="concept-evidence scroll-anim">
-                    <h3>Evidence: curl Headers</h3>
+                    <h3>Evidence: HTTPS Response Headers</h3>
                     <div class="terminal terminal-sm">
                         <div class="terminal-chrome">
                             <div class="terminal-dots"><span></span><span></span><span></span></div>
-                            <span class="terminal-title">curl -I</span>
+                            <span class="terminal-title">curl -I (HTTPS)</span>
                         </div>
                         <div class="terminal-body">
                             <div class="t-line"><span class="t-ps">$</span> curl -I https://network-project-self.vercel.app</div>
                             <div class="t-line out hi">HTTP/2 200</div>
-                            <div class="t-line out">content-type: text/html; charset=utf-8</div>
+                            <div class="t-line out">accept-ranges: bytes</div>
+                            <div class="t-line out">access-control-allow-origin: *</div>
+                            <div class="t-line out">age: 82</div>
                             <div class="t-line out">cache-control: public, max-age=0, must-revalidate</div>
-                            <div class="t-line out hi">strict-transport-security: max-age=63072000</div>
-                            <div class="t-line out">x-vercel-id: iad1::xxxxx</div>
-                            <div class="t-line out">x-content-type-options: nosniff</div>
-                            <div class="t-line out">x-frame-options: SAMEORIGIN</div>
+                            <div class="t-line out">content-disposition: inline</div>
+                            <div class="t-line out">content-type: text/html; charset=utf-8</div>
+                            <div class="t-line out">date: Fri, 20 Feb 2026 18:33:35 GMT</div>
+                            <div class="t-line out">etag: "10b150db9e8e29c39fb1188bbca6d40c"</div>
+                            <div class="t-line out">server: Vercel</div>
+                            <div class="t-line out hi">strict-transport-security: max-age=63072000; includeSubDomains; preload</div>
+                            <div class="t-line out">x-vercel-cache: HIT</div>
+                            <div class="t-line out">x-vercel-id: iad1::h9htg-1771612415556-fc10126e3322</div>
                         </div>
                     </div>
                     <div class="evidence-note">
                         <strong>What this shows:</strong> <code>HTTP/2 200</code> confirms a successful encrypted 
-                        connection. The <code>strict-transport-security</code> header forces all future connections 
-                        to use HTTPS for ~2 years (63072000 seconds).
+                        connection over HTTPS. The <code>strict-transport-security</code> header with <code>max-age=63072000</code> 
+                        (≈2 years) forces all future browser connections to use HTTPS, preventing protocol downgrade attacks. 
+                        <code>x-vercel-cache: HIT</code> confirms the response was served from Vercel's CDN edge cache (iad1 = Virginia datacenter).
                     </div>
 
-                    <h3 style="margin-top: 2rem;">Evidence: HTTP Redirect</h3>
+                    <h3 style="margin-top: 2rem;">Evidence: HTTP → HTTPS Redirect</h3>
                     <div class="terminal terminal-sm">
                         <div class="terminal-chrome">
                             <div class="terminal-dots"><span></span><span></span><span></span></div>
-                            <span class="terminal-title">redirect test</span>
+                            <span class="terminal-title">curl -I (HTTP)</span>
                         </div>
                         <div class="terminal-body">
                             <div class="t-line"><span class="t-ps">$</span> curl -I http://network-project-self.vercel.app</div>
-                            <div class="t-line out hi">HTTP/1.1 308 Permanent Redirect</div>
-                            <div class="t-line out hi">location: https://network-project-self.vercel.app/</div>
+                            <div class="t-line out hi">HTTP/1.0 308 Permanent Redirect</div>
+                            <div class="t-line out">Content-Type: text/plain</div>
+                            <div class="t-line out hi">Location: https://network-project-self.vercel.app/</div>
+                            <div class="t-line out">Refresh: 0;url=https://network-project-self.vercel.app/</div>
+                            <div class="t-line out">server: Vercel</div>
                         </div>
                     </div>
                     <div class="evidence-note">
-                        <strong>What this shows:</strong> Requesting via HTTP (not HTTPS) returns a 308 redirect, 
-                        proving that HTTPS is enforced — not just available.
+                        <strong>What this shows:</strong> Requesting via plain HTTP returns a <code>308 Permanent Redirect</code> 
+                        with the <code>Location</code> header pointing to the HTTPS version. This proves HTTPS is 
+                        <strong>enforced</strong> — not just available. Any unencrypted request is automatically upgraded.
                     </div>
                 </div>
             </div>
@@ -272,82 +312,93 @@
                     <p>
                         Vercel automatically provisions a TLS certificate (via Let's Encrypt) and enforces 
                         HTTPS on all deployments. This means every connection to this site is encrypted, 
-                        protecting against eavesdropping, tampering, and man-in-the-middle attacks.
+                        protecting against eavesdropping, data tampering, and man-in-the-middle (MITM) attacks.
                     </p>
 
                     <h3>TLS Handshake for This Site</h3>
                     <div class="flow">
                         <div class="flow-step">
                             <span class="flow-n">1</span>
-                            <div><strong>Client Hello</strong><span>Browser sends supported TLS versions & cipher suites</span></div>
+                            <div><strong>Client Hello</strong><span>Browser sends supported TLS versions & cipher suites to Vercel</span></div>
                         </div>
                         <div class="flow-arrow">↓</div>
                         <div class="flow-step">
                             <span class="flow-n">2</span>
-                            <div><strong>Server Hello</strong><span>Vercel selects TLS 1.3, sends its certificate</span></div>
+                            <div><strong>Server Hello</strong><span>Vercel selects TLS 1.3, responds with its Let's Encrypt certificate</span></div>
                         </div>
                         <div class="flow-arrow">↓</div>
                         <div class="flow-step">
                             <span class="flow-n">3</span>
-                            <div><strong>Certificate Verify</strong><span>Browser validates cert against trusted CAs</span></div>
+                            <div><strong>Certificate Verification</strong><span>Browser validates the certificate chain against trusted Certificate Authorities</span></div>
                         </div>
                         <div class="flow-arrow">↓</div>
                         <div class="flow-step">
                             <span class="flow-n">4</span>
-                            <div><strong>Key Exchange</strong><span>ECDHE key exchange creates shared session key</span></div>
+                            <div><strong>Key Exchange</strong><span>ECDHE key exchange establishes a shared session key</span></div>
                         </div>
                         <div class="flow-arrow">↓</div>
                         <div class="flow-step">
                             <span class="flow-n">5</span>
-                            <div><strong>Encrypted Session</strong><span>All data encrypted with AES-256-GCM</span></div>
+                            <div><strong>Encrypted Session</strong><span>All subsequent data encrypted with AES-256-GCM symmetric encryption</span></div>
                         </div>
                     </div>
 
-                    <h3>Security Headers Active</h3>
+                    <h3>Security Headers Active on This Site</h3>
                     <div class="security-checks">
                         <div class="sec-item">
                             <span class="sec-check">✓</span>
                             <div>
-                                <strong>HSTS (Strict-Transport-Security)</strong>
-                                <p>Forces HTTPS for all future requests. Prevents protocol downgrade attacks.</p>
+                                <strong>Strict-Transport-Security (HSTS)</strong>
+                                <p><code>max-age=63072000; includeSubDomains; preload</code> — Forces all browsers to use HTTPS for approximately 2 years. The <code>includeSubDomains</code> directive extends this to all subdomains, and <code>preload</code> allows inclusion in browser HSTS preload lists.</p>
                             </div>
                         </div>
                         <div class="sec-item">
                             <span class="sec-check">✓</span>
                             <div>
-                                <strong>X-Content-Type-Options: nosniff</strong>
-                                <p>Prevents MIME-type sniffing, reducing XSS risk from file type confusion.</p>
+                                <strong>Access-Control-Allow-Origin: *</strong>
+                                <p>CORS header allowing cross-origin requests. Appropriate for a public static site since all content is already publicly accessible.</p>
                             </div>
                         </div>
                         <div class="sec-item">
                             <span class="sec-check">✓</span>
                             <div>
-                                <strong>X-Frame-Options: SAMEORIGIN</strong>
-                                <p>Only allows framing from the same origin, protecting against clickjacking.</p>
+                                <strong>Cache-Control: public, max-age=0, must-revalidate</strong>
+                                <p>Ensures browsers always check with the server for the latest content version, preventing stale content delivery while still allowing CDN caching.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="concept-evidence scroll-anim">
-                    <h3>Evidence: TLS Certificate</h3>
+                    <h3>Evidence: Security Verification</h3>
                     <div class="terminal terminal-sm">
                         <div class="terminal-chrome">
                             <div class="terminal-dots"><span></span><span></span><span></span></div>
-                            <span class="terminal-title">openssl</span>
+                            <span class="terminal-title">security check</span>
                         </div>
                         <div class="terminal-body">
-                            <div class="t-line"><span class="t-ps">$</span> echo | openssl s_client -connect network-project-self.vercel.app:443 2>/dev/null | openssl x509 -noout -subject -issuer -dates</div>
-                            <div class="t-line out hi">subject=CN = network-project-self.vercel.app</div>
-                            <div class="t-line out">issuer=C = US, O = Let's Encrypt, CN = E6</div>
-                            <div class="t-line out">notBefore=...</div>
-                            <div class="t-line out">notAfter=...</div>
+                            <div class="t-line"><span class="t-ps">#</span> HTTPS Enforcement Test</div>
+                            <div class="t-line">&nbsp;</div>
+                            <div class="t-line"><span class="t-ps">$</span> curl -I http://network-project-self.vercel.app</div>
+                            <div class="t-line out hi">HTTP/1.0 308 Permanent Redirect</div>
+                            <div class="t-line out hi">Location: https://network-project-self.vercel.app/</div>
+                            <div class="t-line">&nbsp;</div>
+                            <div class="t-line"><span class="t-ps">#</span> HSTS Header Verification</div>
+                            <div class="t-line">&nbsp;</div>
+                            <div class="t-line"><span class="t-ps">$</span> curl -sI https://network-project-self.vercel.app | grep strict</div>
+                            <div class="t-line out hi">strict-transport-security: max-age=63072000; includeSubDomains; preload</div>
+                            <div class="t-line">&nbsp;</div>
+                            <div class="t-line"><span class="t-ps">#</span> Server Identification</div>
+                            <div class="t-line">&nbsp;</div>
+                            <div class="t-line"><span class="t-ps">$</span> curl -sI https://network-project-self.vercel.app | grep server</div>
+                            <div class="t-line out hi">server: Vercel</div>
                         </div>
                     </div>
                     <div class="evidence-note">
-                        <strong>What this shows:</strong> The TLS certificate is issued by Let's Encrypt for this 
-                        specific domain. The certificate validates that the server is who it claims to be, 
-                        preventing impersonation attacks.
+                        <strong>What this shows:</strong> Three checks confirm the security implementation: (1) HTTP 
+                        requests are rejected and redirected to HTTPS via 308, (2) HSTS is active with a 2-year 
+                        max-age including subdomain coverage, and (3) the server identifies as Vercel, confirming 
+                        the deployment platform.
                     </div>
                 </div>
             </div>
@@ -360,8 +411,9 @@
             <div class="statement scroll-anim">
                 <div class="stmt-deco"><span class="stmt-line"></span><span class="stmt-diamond">◆</span><span class="stmt-line"></span></div>
                 <blockquote>
-                    This website is hosted publicly on Vercel. DNS resolves the domain to an IP address, 
-                    and communication occurs over HTTPS using TCP/IP.
+                    This website is hosted publicly on Vercel at <code>network-project-self.vercel.app</code>. 
+                    DNS resolves the domain to IP addresses <code>216.198.79.67</code> and <code>64.29.17.67</code>, 
+                    and all communication occurs over HTTPS using TLS encryption within the TCP/IP protocol stack.
                 </blockquote>
                 <cite>— Project Verification Statement</cite>
             </div>
