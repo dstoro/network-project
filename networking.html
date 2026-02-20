@@ -90,12 +90,12 @@
                             <span class="terminal-title">nslookup</span>
                         </div>
                         <div class="terminal-body">
-                            <div class="t-line"><span class="t-ps">$</span> nslookup network-project-8o8j21gys-deans-projects-c338bd6c.vercel.app</div>
+                            <div class="t-line"><span class="t-ps">$</span> nslookup network-project-self.vercel.app</div>
                             <div class="t-line out">Server:  8.8.8.8</div>
                             <div class="t-line out">Address: 8.8.8.8#53</div>
                             <div class="t-line out">&nbsp;</div>
                             <div class="t-line out">Non-authoritative answer:</div>
-                            <div class="t-line out hi">Name:    network-project-8o8j21gys-deans-projects-c338bd6c.vercel.app</div>
+                            <div class="t-line out hi">Name:    network-project-self.vercel.app</div>
                             <div class="t-line out hi">Address: 76.76.21.21</div>
                         </div>
                     </div>
@@ -148,10 +148,10 @@
                             <span class="terminal-title">dig</span>
                         </div>
                         <div class="terminal-body">
-                            <div class="t-line"><span class="t-ps">$</span> dig network-project-8o8j21gys-deans-projects-c338bd6c.vercel.app A +short</div>
+                            <div class="t-line"><span class="t-ps">$</span> dig network-project-self.vercel.app A +short</div>
                             <div class="t-line out hi">76.76.21.21</div>
                             <div class="t-line">&nbsp;</div>
-                            <div class="t-line"><span class="t-ps">$</span> dig network-project-8o8j21gys-deans-projects-c338bd6c.vercel.app AAAA +short</div>
+                            <div class="t-line"><span class="t-ps">$</span> dig network-project-self.vercel.app AAAA +short</div>
                             <div class="t-line out hi">2606:4700:10::6816:15</div>
                         </div>
                     </div>
@@ -221,7 +221,7 @@
                             <span class="terminal-title">curl -I</span>
                         </div>
                         <div class="terminal-body">
-                            <div class="t-line"><span class="t-ps">$</span> curl -I https://network-project-8o8j21gys-deans-projects-c338bd6c.vercel.app</div>
+                            <div class="t-line"><span class="t-ps">$</span> curl -I https://network-project-self.vercel.app</div>
                             <div class="t-line out hi">HTTP/2 200</div>
                             <div class="t-line out">content-type: text/html; charset=utf-8</div>
                             <div class="t-line out">cache-control: public, max-age=0, must-revalidate</div>
@@ -244,9 +244,9 @@
                             <span class="terminal-title">redirect test</span>
                         </div>
                         <div class="terminal-body">
-                            <div class="t-line"><span class="t-ps">$</span> curl -I http://network-project-8o8j21gys-deans-projects-c338bd6c.vercel.app</div>
+                            <div class="t-line"><span class="t-ps">$</span> curl -I http://network-project-self.vercel.app</div>
                             <div class="t-line out hi">HTTP/1.1 308 Permanent Redirect</div>
-                            <div class="t-line out hi">location: https://network-project-8o8j21gys-deans-projects-c338bd6c.vercel.app/</div>
+                            <div class="t-line out hi">location: https://network-project-self.vercel.app/</div>
                         </div>
                     </div>
                     <div class="evidence-note">
@@ -337,8 +337,8 @@
                             <span class="terminal-title">openssl</span>
                         </div>
                         <div class="terminal-body">
-                            <div class="t-line"><span class="t-ps">$</span> echo | openssl s_client -connect network-project-8o8j21gys-deans-projects-c338bd6c.vercel.app:443 2>/dev/null | openssl x509 -noout -subject -issuer -dates</div>
-                            <div class="t-line out hi">subject=CN = network-project-8o8j21gys-deans-projects-c338bd6c.vercel.app</div>
+                            <div class="t-line"><span class="t-ps">$</span> echo | openssl s_client -connect network-project-self.vercel.app:443 2>/dev/null | openssl x509 -noout -subject -issuer -dates</div>
+                            <div class="t-line out hi">subject=CN = network-project-self.vercel.app</div>
                             <div class="t-line out">issuer=C = US, O = Let's Encrypt, CN = E6</div>
                             <div class="t-line out">notBefore=...</div>
                             <div class="t-line out">notAfter=...</div>
